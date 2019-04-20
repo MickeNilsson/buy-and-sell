@@ -1,0 +1,51 @@
+body {
+  min-height: 75rem;
+  padding-top: 4.5rem;
+}
+
+.scrollable-menu {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+}
+
+/* #add-pic-file-input, #add-phone-text-input {
+    display: none;
+} */
+
+#search-button {
+  width: 38px;
+  height: 38px;
+  background-repeat: no-repeat;
+  background-size: 26px 26px;
+  background-position: center center;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAYdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjEuNBNAaMQAAAMvSURBVFhHxZY5iBVBEIb3BA0UVMREEAwUMTFwURM12cQDjQxMVlBQFDMFr00UDxbDRVDUxECD9Qg0WEXFTERQDMUTZD0QD7zP5/fXVD2a5b15M/v24Q8f3VNdXV3T08e0jValUumEdq/PgX64Cc/hA7yDR3AZtsIM922HDtXHLAJ0ejkbzsA3kP4mZYr0Fg7C5DRGaUVHyj74DNJvSAcPRf0PyEd6CkvSWIVFB5s6yt0g/YKfWbUyAidhI6yE1bAdzsMnkL57qRlb4bGKJRGOlBpA+gF6s6+wFyaZYw3RNhNOg6R+mpkv0OPtxdYEjvNA066BpdewyNu0uLQwU7qgA2KxbgD1jVm7DxPUVkg4n7Vu2ffUmy92ezfYILVEm5Lo9vpmkOJz7HB7/qfAYQFo0Hj7nW63wEWEb5eXQwrgegiNZwGnQ+ae6RnYdioj+sQi7lEQFC/T6/b6s0DjbXPNNOi2ctsoEX3TeAfclpvAG3PNtN5tpROIPpSDCuQaclv93UCjFl5M2VK3lT5S6RMJ7FIg1w231V3IatShEwksd1szCexRINd1t+Um8NJcM/W5rZlPcFyBXOfStpqi8Za5ZjrlttIJSPTToXVPgVz9bs9NYJ+5ZtIJON3t9adtlPCNt18GUlxQjdcUjXPhI8QNd9jthQ4i/Kr/AZTXIPQAis0kjvHddJYrkVVu11FcN3va7F7wun5cJF1K0qbwUZkrnHSrxXmgHaEbba232RuCLqD0Mqp+Iuq6NSXtKOkVTPO2/B2FQ3y/NSApiNBMnIBZ5lhDtC2EqyDF7MX3vwgxO/nrCYdIQteqgmgWYio1G8OwH3TjbYOjoCM3Bot/AT03nUQvvABJgeKQUuBQ1GNAoWmXbwwe/wZjSmIqHAH9cEoxSCh9fgxbYCJckAHF4GNKIv3TmQLr4Bhoi92FO3AFBkCzVb3zqWtxajCpqSTsN8wfG0q+EGfB+CQhyQli61W3k+pg29JNJp5j5sYvibKKoBrEB5NGJ3EJLImWiOBFktD/439LIk7MYXNulRigVhIaPM6KEXNspRgkTSL9bX8C882p1WKgNAkd6++zwdva/gEJOHeqQRFndgAAAABJRU5ErkJggg==");
+}
+
+#loader {
+    z-index: 10000000000;
+    background: none;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+    background-image: url("../images/loader.gif");
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: none;
+}
+
+#block {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1000000000;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+}
