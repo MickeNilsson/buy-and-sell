@@ -10,9 +10,13 @@ require_once '../../settings.php';
 require_once '../../classes/db.php';
 
 $data_o = json_decode(file_get_contents('php://input'));
+
 print_r($data_o);
 $db_o = new DB($settings_a);
 echo $db_o->add($data_o);
+
+// $bytes = random_bytes(5);
+// var_dump(bin2hex($bytes));
 //$validationErrors_as = validate($data_am);
 
 
