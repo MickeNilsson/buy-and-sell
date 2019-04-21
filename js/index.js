@@ -51,16 +51,16 @@
         $('#block').show();
         $.ajax({
             type: 'POST',
-            url: 'http://www.digizone.se/temp/buy-and-sell/backend/add-ad.php',
+            url: 'http://www.digizone.se/temp/buy-and-sell/backend/api/add-new-ad/',
             data: JSON.stringify(ad_o),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
+            //contentType: 'application/json; charset=utf-8',
+            contentType: 'text/plain',
+            //dataType: 'json',
             success: function(data) {
                 console.dir(data);
-                setTimeout(function() {
-                    $('#loader').hide();
-                    $('#block').hide();
-                }, 2000);
+                $('#loader').hide();
+                $('#block').hide();
+                $('#add-ad-modal').modal('hide');
             },
             failure: function(errMsg) {
                 alert(errMsg);
@@ -69,6 +69,7 @@
     });
 
     function validateAddAdForm() {
+
         var ad_o = {};
         var validationError_b = false;
         $('#add-ad-form input, ' +
@@ -92,6 +93,7 @@
     });
 
     function validateField(fieldId_s) {
+
         var fieldValue_m;
         switch(fieldId_s) {
             case 'category':
@@ -103,13 +105,13 @@
                 break;
             case 'heading':
                 fieldValue_m = $('#heading').val();
-                if(fieldValue_m.length < 1 || fieldValue_m.length > 50) {
+                if(fieldValue_m.length < 1 || fieldValue_m.length > 200) {
                     fieldValue_m = false;
                 }
                 break;
             case 'ad':
                 fieldValue_m = $('#ad').val();
-                if(fieldValue_m.length < 1 || fieldValue_m.length > 500) {
+                if(fieldValue_m.length < 1 || fieldValue_m.length > 400) {
                     fieldValue_m = false;
                 }
                 break;

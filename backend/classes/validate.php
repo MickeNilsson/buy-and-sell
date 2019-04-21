@@ -30,7 +30,7 @@ class Validate {
      *                          price - Integer (>= 0)
      *                          type - String ("buy" or "sell")
      * 
-     * @return mixed Returns boolean false if any of the properties doesn't validate,
+     * @return boolean Returns boolean false if any of the properties doesn't validate,
      *               otherwise returns true.
      */
     public function validateAll($params_o) {
