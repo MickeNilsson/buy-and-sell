@@ -7,7 +7,7 @@
  * Example usage:
  * 
  * $validate_o = new Validate();
- * $validate_o->validateAll($input_o);
+ * $successfulValidation_m = $validate_o->validateAll($input_o);
  * 
  * @author Mikael Nilsson <mikael@digizone.se>
  * @access public
@@ -25,6 +25,7 @@ class Validate {
      *                          body - String (1 - 400 characters)
      *                          category - Integer (1 - 31)
      *                          county - Integer (1 - 23)
+     *                          email - String (<= 100 characters)
      *                          header - String (1 - 200 characters)
      *                          price - Integer (>= 0)
      *                          type - String ("buy" or "sell")
@@ -37,6 +38,7 @@ class Validate {
         $params_o->body = isset($params_o->body) ? $this->validateBody($params_o->body) : false;
         $params_o->category = isset($params_o->category) ? $this->validateCategory($params_o->category) : false;
         $params_o->county = isset($params_o->county) ? $this->validateCounty($params_o->county) : false;
+        $params_o->email = isset($params_o->email) ? $this->validateEmail($params_o->email) : false;
         $params_o->header = isset($params_o->header) ? $this->validateHeader($params_o->header) : false;
         $params_o->price = isset($params_o->price) ? $this->validatePrice($params_o->price) : false;
         $params_o->type = isset($params_o->type) ? $this->validateType($params_o->type) : false;
@@ -80,6 +82,14 @@ class Validate {
             return false;
         }
         return $county_m;
+    }
+
+    public function validateEmail($email_m) {
+
+        if(!filter_var($email_m, FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
+        return $email_m;
     }
 
     public function validateHeader($header_m) {

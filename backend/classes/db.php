@@ -22,8 +22,8 @@ class DB {
     public function add($params_o) {
 
         //$stmt_o = $this->pdo_o->prepare("SELECT * FROM `users` WHERE `lastname` = :lastname");
-        $sql_s = "INSERT INTO ads(type, category, county, header, body, price, user, sha1) "
-               . "VALUES ('$params_o->type', $params_o->category, $params_o->county, '$params_o->header', '$params_o->body', $params_o->price, $params_o->user, '$params_o->sha1')";
+        $sql_s = "INSERT INTO ads(type, category, county, header, body, price, email, sha1) "
+               . "VALUES ('$params_o->type', $params_o->category, $params_o->county, '$params_o->header', '$params_o->body', $params_o->price, '$params_o->email', '$params_o->sha1')";
         
         $stmt_o = $this->pdo_o->prepare($sql_s);
         // $stmt_o->execute([
@@ -34,8 +34,6 @@ class DB {
         //     echo $row['firstname'] . "\n";
         // }
     }
-
-
 }
 
 ?>
