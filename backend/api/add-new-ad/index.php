@@ -13,10 +13,9 @@ $validate_o = new Validate();
 $db_o = new DB($settings_a);
 
 $newAd_o = json_decode(file_get_contents('php://input'));
-echo json_encode($newAd_o, JSON_UNESCAPED_UNICODE);exit;
 
-$successfulValidation_m = $validate_o->validateAll($newAd_o);
-if($successfulValidation_m) {
+$successfulValidation_b = $validate_o->validateAll($newAd_o);
+if($successfulValidation_b) {
     $db_o->add($newAd_o);
     $success_o = new stdClass();
     $success_o->status = 'ok';
