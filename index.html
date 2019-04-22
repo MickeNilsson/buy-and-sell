@@ -10,24 +10,26 @@
     <link rel="stylesheet" href="./css/index.css" />
     <style>
         button,
-      button:active,
-      button:focus {
-        box-shadow: none;
-      }
-      .dropdown-item:hover {
-        background-color: rgba(128, 128, 128, 0.198);
-      }
-      .btn-outline-secondary {
-        border-color: #ccc;
-      }
+        button:active,
+        button:focus {
+            box-shadow: none;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(128, 128, 128, 0.198);
+        }
+
+        .btn-outline-secondary {
+            border-color: #ccc;
+        }
     </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="#">Buy &amp; Sell</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
-            aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -44,15 +46,16 @@
                     <a class="nav-link disabled" href="#">Disabled</a>
                 </li> -->
                 <li class="nav-item" style="background: none;">
-                    <form class="form-inline mt-2 mt-md-0"><input class="form-control mr-sm-2" type="text" placeholder="Sök" aria-label="Search" /></form>
-                    
+                    <form class="form-inline mt-2 mt-md-0"><input class="form-control mr-sm-2" type="text"
+                            placeholder="Sök" aria-label="Search" /></form>
+
                 </li>
 
                 <li class="nav-item" style="background: none;">
                     <div id="kategori" class="dropdown">
-                        <button style="box-shadow: none;background: none;border: none;padding-left:0;" class="btn btn-secondary dropdown-toggle"
-                            type="button" id="kategoriDropDownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
+                        <button style="box-shadow: none;background: none;border: none;padding-left:0;"
+                            class="btn btn-secondary dropdown-toggle" type="button" id="kategoriDropDownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Alla kategorier
                         </button>
                         <div class="dropdown-menu scrollable-menu" aria-labelledby="lanDropDownMenuButton">
@@ -93,9 +96,9 @@
                 </li>
                 <li class="nav-item" style="background: none;">
                     <div id="lan" class="dropdown">
-                        <button style="box-shadow: none;background: none;border: none;padding-left:0;" class="btn btn-secondary dropdown-toggle"
-                            type="button" id="lanDropDownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
+                        <button style="box-shadow: none;background: none;border: none;padding-left:0;"
+                            class="btn btn-secondary dropdown-toggle" type="button" id="lanDropDownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Hela Sverige
                         </button>
                         <div class="dropdown-menu scrollable-menu" aria-labelledby="lanDropDownMenuButton">
@@ -128,9 +131,9 @@
                 </li>
                 <li class="nav-item" style="background: none;">
                     <div id="buy-or-sell-dropdown" class="dropdown">
-                        <button style="box-shadow: none;background: none;border: none;padding-left:0;" class="btn btn-secondary dropdown-toggle"
-                            type="button" id="buy-or-sell-dropdown-button" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
+                        <button style="box-shadow: none;background: none;border: none;padding-left:0;"
+                            class="btn btn-secondary dropdown-toggle" type="button" id="buy-or-sell-dropdown-button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Säljes
                         </button>
                         <div class="dropdown-menu scrollable-menu" aria-labelledby="buy-or-sell-dropdown-button">
@@ -149,7 +152,8 @@
                 </li>
             </ul>
 
-            <button id="place-add-button" class="btn btn-success my-2 my-sm-0" data-toggle="modal" data-target="#add-ad-modal">
+            <button id="place-add-button" class="btn btn-success my-2 my-sm-0" data-toggle="modal"
+                data-target="#add-ad-modal">
                 Sätt in annons
             </button>
         </div>
@@ -182,7 +186,8 @@
         <div class="row">
             <div class="col-sm">
                 <div class="list-group">
-                    <a data-toggle="modal" data-target="#item-modal" href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <a data-toggle="modal" data-target="#item-modal" href="#"
+                        class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">Super Nintendo</h5>
                             <small>Idag 14.30</small>
@@ -227,18 +232,18 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <p class="collapse" id="success-text">Din annons har nu blivit publicerad.</p>
                     <form id="add-ad-form">
                         <!-- Säljes - Radioknapp -->
                         <div class="form-group">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" id="sell"
-                                    value="sell" checked />
+                                <input class="form-check-input" type="radio" name="type" id="sell" value="sell"
+                                    checked />
                                 <label class="form-check-label" for="sell-radio">Säljes</label>
                             </div>
                             <!-- Köpes - Radioknapp -->
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" id="buy"
-                                    value="buy" />
+                                <input class="form-check-input" type="radio" name="type" id="buy" value="buy" />
                                 <label class="form-check-label" for="buy">Köpes</label>
                             </div>
                         </div>
@@ -324,14 +329,11 @@
                             <label for="price">Pris <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="price" placeholder="Pris" />
                         </div>
-                        
-
-                        
                         <div class="form-group">
                             <label for="email">E-post <span class="text-danger">*</span></label>
                             <input type="email" class="form-control" id="email" placeholder="E-post" />
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="phone">Telefon</label>
                             <input type="tel" class="form-control" id="phone" placeholder="Telefon" />
@@ -350,7 +352,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="item-modal" tabindex="-1" role="dialog" aria-labelledby="item-modal-label" aria-hidden="true">
+    <div class="modal fade" id="item-modal" tabindex="-1" role="dialog" aria-labelledby="item-modal-label"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -382,7 +385,8 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
                         Stäng
                     </button>
-                    <button id="show-send-message-modal-button" type="button" class="btn btn-primary" data-dismiss="modal">
+                    <button id="show-send-message-modal-button" type="button" class="btn btn-primary"
+                        data-dismiss="modal">
                         Svara annonsören
                     </button>
                 </div>
