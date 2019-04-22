@@ -50,6 +50,10 @@
         //console.log($('#ad').val().length);
     });
 
+    $('#add-ad-modal').on('hidden.bs.modal', function () {
+        resetForm();
+    });
+
     $("#submit-ad").on("click", function () {
 
         var ad_o = validateAddAdForm();
@@ -116,6 +120,21 @@
     $("#add-ad-form").on("change keyup", function (e) {
         validateField(e.target.id);
     });
+
+    function resetForm() {
+
+        $('#success-text').hide();
+        $('#add-ad-form').show();
+        $('#submit-ad').show();
+        $('#sell').prop('checked', true).removeClass('border-danger');
+        $('#category').prop('selectedIndex', 0).removeClass('border-danger');
+        $('#county').prop('selectedIndex', 0).removeClass('border-danger');
+        $('#header').val('').removeClass('border-danger');
+        $('#body').val('').removeClass('border-danger');
+        $('#price').val('').removeClass('border-danger');
+        $('#email').val('').removeClass('border-danger');
+        $('#phone').val('').removeClass('border-danger');
+    }
 
     function validateField(fieldId_s) {
         var fieldValue_m;
