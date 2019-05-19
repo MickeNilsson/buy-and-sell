@@ -7,11 +7,7 @@
 
 echo extension_loaded('pdo_mysql');
 
-$host = 'digizone.se.mysql';
-$db   = 'digizone_se';
-$user = 'digizone_se';
-$pass = 'GBWinsVW';
-$charset = 'utf8mb4';
+
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $options = [
