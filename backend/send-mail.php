@@ -24,6 +24,7 @@ function sendMail($rescipient, $html) {
     require_once './libs/php-mailer/PHPMailer.php';
     require_once './libs/php-mailer/POP3.php';
     require_once './libs/php-mailer/SMTP.php';
+    require_once './settings.php';
     
     $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
     try {
@@ -32,8 +33,8 @@ function sendMail($rescipient, $html) {
         $mail->isSMTP();                                      // Set mailer to use SMTP
         $mail->Host = 'send.one.com';  // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
-        $mail->Username = 'noreply@digizone.se';                 // SMTP username
-        $mail->Password = 'gwailo';                           // SMTP password
+        $mail->Username = 'noreply@digizone.se';              // SMTP username
+        $mail->Password = $settings_a['mailPassword'];        // SMTP password
         $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
         $mail->Port = 587;                                    // TCP port to connect to
     
