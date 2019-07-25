@@ -64,7 +64,7 @@
         $("#block").show();
         $.ajax({
             type: "POST",
-            url: "http://www.digizone.se/temp/buy-and-sell/backend/api/add-new-ad/",
+            url: "http://www.digizone.se/temp/buy-and-sell/backend/api/add/",
             data: JSON.stringify(ad_o),
             //contentType: 'application/json; charset=utf-8',
             contentType: "text/plain",
