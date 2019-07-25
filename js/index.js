@@ -1,16 +1,19 @@
 (function ($) {
     "use strict";
-    $("#lan .dropdown-item").on("click", function (e) {
-        $("#lanDropDownMenuButton").text(e.target.text);
+    $("#search-county .dropdown-item").on("click", function (e) {
+        $("#search-county-button").text(e.target.text);
+        $('#search-county-button').attr('data-county', e.target.dataset.county);
     });
     $("#choose-lan .dropdown-item").on("click", function (e) {
         $("#choose-lan-dropdown-button").text(e.target.text);
     });
-    $("#kategori .dropdown-item").on("click", function (e) {
-        $("#kategoriDropDownMenuButton").text(e.target.text);
+    $("#search-category .dropdown-item").on("click", function (e) {
+        $("#search-category-button").text(e.target.text);
+        $('#search-category-button').attr('data-category', e.target.dataset.category);
     });
-    $("#buy-or-sell-dropdown .dropdown-item").on("click", function (e) {
-        $("#buy-or-sell-dropdown-button").text(e.target.text);
+    $("#search-buy-or-sell .dropdown-item").on("click", function (e) {
+        $("#search-buy-or-sell-button").text(e.target.text);
+        $('#search-buy-or-sell-button').attr('data-buy-or-sell', e.target.dataset.buyOrSell);
     });
     $("#sort-dropdown .dropdown-item").on("click", function (e) {
         $("#sort-dropdown-button").text(e.target.text);
@@ -118,11 +121,24 @@
     }
 
     $('#search-button').on('click', function(e) {
-        var searchText_s = $('#search-text').val();
+        var text_s = $('#search-text').val();
+        var category_s = $('#search-category-button').attr('data-category');
+        var county_s = $('#search-county-button').attr('data-county');
+        var buyOrSell_s = $('#search-buy-or-sell-button').attr('data-buy-or-sell');
+        var search_o = {
+            text: text_s,
+            category: category_s,
+            county: county_s,
+            buyOrSell: buyOrSell_s
+        };
+        console.dir(search_o);
+        $("#loader").show();
+        $("#block").show();
+        return;
         $.ajax({
             type: 'POST',
             url: 'http://www.digizone.se/temp/buy-and-sell/backend/api/search/',
-            data: JSON.stringify(ad_o),
+            data: JSON.stringify(search_o),
             //contentType: 'application/json; charset=utf-8',
             contentType: "text/plain",
             //dataType: 'json',
