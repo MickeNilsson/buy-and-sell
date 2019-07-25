@@ -117,6 +117,43 @@
         return validationError_b ? false : ad_o;
     }
 
+    $('#search-button').on('click', function(e) {
+        var searchText_s = $('#search-text').val();
+        $.ajax({
+            type: 'POST',
+            url: 'http://www.digizone.se/temp/buy-and-sell/backend/api/search/',
+            data: JSON.stringify(ad_o),
+            //contentType: 'application/json; charset=utf-8',
+            contentType: "text/plain",
+            //dataType: 'json',
+            success: function (response_o) {
+
+                $("#loader").hide();
+                $("#block").hide();
+                if (response_o.status === "error") {
+                    for (var key in response_o.description) {
+                        if (response_o.description.hasOwnProperty(key)) {
+                            if(response_o.description[key] === false) {
+                                $("#" + key).addClass("border-danger");
+                            }
+                        }
+                    }
+                } else {
+                    // $('#add-ad-form').addClass('collapse');
+                    // $('#submit-ad').addClass('collapse');
+                    // $('#success-text').removeClass('collapse');
+                    $('#add-ad-form').hide();
+                    $('#submit-ad').hide();
+                    $('#success-text').show();
+                    //$("#add-ad-modal").modal("hide");
+                }
+            },
+            failure: function (errMsg) {
+                alert(errMsg);
+            }
+        });
+    });
+
     $("#add-ad-form").on("change keyup", function (e) {
         validateField(e.target.id);
     });
