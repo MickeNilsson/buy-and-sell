@@ -43,24 +43,24 @@ class DB {
             $sql_s .= " category = :category";
             //$sql_s .= " category = $params_o->category";
             $and_s = " AND";
-            array_push_assoc($placeholders_a, 'category', $params_o->category);
+            $this->array_push_assoc($placeholders_a, 'category', $params_o->category);
         }
         if($params_o->buyOrSell !== '3') {
             $sql_s .= $and_s . " type = :type";
             //$sql_s .= $and_s . " type = $params_o->buyOrSell";
             $and_s = " AND";
-            array_push_assoc($placeholders_a, 'type', $params_o->buyOrSell);
+            $this->array_push_assoc($placeholders_a, 'type', $params_o->buyOrSell);
         }
         if($params_o->county !== '0') {
             $sql_s .= $and_s . " county = :county";
             //$sql_s .= $and_s . " county = $params_o->county";
             $and_s = " AND";
-            array_push_assoc($placeholders_a, 'county', $params_o->county);
+            $this->array_push_assoc($placeholders_a, 'county', $params_o->county);
         }
         if($params_o->text !== '') {
             $sql_s .= $and_s . " body LIKE %:body%";
             //$sql_s .= $and_s . " body LIKE %$params_o->text%";
-            array_push_assoc($placeholders_a, 'body', $params_o->text);
+            $this->array_push_assoc($placeholders_a, 'body', $params_o->text);
         }
         return $placeholders_a;
         return $sql_s;
