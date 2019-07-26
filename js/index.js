@@ -137,7 +137,7 @@
         $.ajax({
             type: 'POST',
             url: 'http://www.digizone.se/buy-and-sell/backend/api/search/',
-            data: search_o,
+            data: JSON.stringify(search_o),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (response_o) {
