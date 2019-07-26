@@ -36,7 +36,7 @@ class DB {
     }
 
     public function search($params_o) {
-        $sql_s = "SELECT id FROM ads WHERE"
+        $sql_s = "SELECT id FROM ads WHERE";
         $and_s = "";
         if($params_o->category !== '0') {
             $sql_s .= " category = $params_o->category";
