@@ -30,6 +30,8 @@ require_once '../../classes/db.php';
 $db_o = new DB($settings_a);
 
 $search_o = json_decode(file_get_contents('php://input'));
+$sql_s = $db_o->search($search_o);
+$search_o->sql = $sql_s;
 echo json_encode($search_o);
 
 

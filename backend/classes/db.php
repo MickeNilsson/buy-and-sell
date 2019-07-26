@@ -34,6 +34,27 @@ class DB {
         //     echo $row['firstname'] . "\n";
         // }
     }
-}
+
+    public function search($params_o) {
+        $sql_s = "SELECT id FROM ads WHERE"
+        $and_s = "";
+        if($params_o->category !== '0') {
+            $sql_s .= " category = $params_o->category";
+            $and_s = " AND";
+        }
+        if($params_o->buyOrSell !== '3') {
+            $sql_s .= $and_s . " type = $params_o->buyOrSell";
+            $and_s = " AND";
+        }
+        if($params_o->county !== '0') {
+            $sql_s .= $and_s . " county = $params_o->county";
+            $and_s = " AND";
+        }
+        if($params_o->text !== '') {
+            $sql_s .= $and_s . " body LIKE %$params_o->text%";
+        }
+        return $sql_s;
+    }
+} 
 
 ?>
