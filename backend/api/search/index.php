@@ -11,6 +11,7 @@ require_once '../../classes/db.php';
 $db_o = new DB($settings_a);
 
 $search_o = json_decode(file_get_contents('php://input'));
+echo $search_o;
 
 
 
