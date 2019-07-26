@@ -67,7 +67,7 @@
         $("#block").show();
         $.ajax({
             type: "POST",
-            url: "http://www.digizone.se/temp/buy-and-sell/backend/api/add/",
+            url: "http://www.digizone.se/buy-and-sell/backend/api/add/",
             data: JSON.stringify(ad_o),
             //contentType: 'application/json; charset=utf-8',
             contentType: "text/plain",
@@ -136,8 +136,8 @@
         $("#block").show();
         $.ajax({
             type: 'POST',
-            url: 'http://www.digizone.se/temp/buy-and-sell/backend/api/search/',
-            data: JSON.stringify(search_o),
+            url: 'http://www.digizone.se/buy-and-sell/backend/api/search/',
+            data: search_o,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (response_o) {
