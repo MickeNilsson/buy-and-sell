@@ -45,11 +45,11 @@ class DB {
             $and_s = " AND";
             $this->array_push_assoc($placeholders_a, 'category', $params_o->category);
         }
-        if($params_o->buyOrSell !== '3') {
+        if($params_o->type !== '3') {
             $sql_s .= $and_s . " type = :type";
-            //$sql_s .= $and_s . " type = $params_o->buyOrSell";
+            //$sql_s .= $and_s . " type = $params_o->type";
             $and_s = " AND";
-            $this->array_push_assoc($placeholders_a, 'type', $params_o->buyOrSell);
+            $this->array_push_assoc($placeholders_a, 'type', $params_o->type);
         }
         if($params_o->county !== '0') {
             $sql_s .= $and_s . " county = :county";
