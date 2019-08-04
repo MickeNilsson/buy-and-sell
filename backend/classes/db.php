@@ -36,7 +36,7 @@ class DB {
     }
 
     public function search($params_o) {
-        $sql_s = "SELECT id FROM ads WHERE";
+        $sql_s = "SELECT id, type, category, county, header, price FROM ads WHERE";
         $and_s = "";
         $placeholders_a = [];
         if($params_o->category !== '0') {
@@ -70,12 +70,14 @@ class DB {
         //$sql_s = "SELECT id FROM ads WHERE body LIKE :body";
         $stmt_o = $this->pdo_o->prepare($sql_s);
         $stmt_o->execute($placeholders_a);
+        
         //$stmt_o->execute(['body' => "%$%"]);
         $queryResult_s = '';
-        while($row_a = $stmt_o->fetch()) {
-            $queryResult_s .= ' ' . $row_a['id'];
+        $queryResult_a = [];
+        while($row_o = $stmt_o->fetch()) {
+            array_push($queryResult_a, $row_o);
         }
-        return $queryResult_s;
+        return $queryResult_a;
     }
 
     private function array_push_assoc(&$array, $key, $value) {
