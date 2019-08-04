@@ -29,11 +29,13 @@ require_once '../../classes/db.php';
 
 $db_o = new DB($settings_a);
 
-$search_o = json_decode(file_get_contents('php://input'));
-print_r($db_o->search($search_o));exit;
-$sql_s = $db_o->search($search_o);
-$search_o->sql = $sql_s;
-echo json_encode($search_o, JSON_UNESCAPED_UNICODE);
+$searchArgs_o = json_decode(file_get_contents('php://input'));
+//print_r($db_o->search($search_o));exit;
+$queryResult_s = $db_o->search($searchArgs_o);
+$response_o = new stdClass();
+$response_o->status = 'ok';
+$response_o->queryResult = $queryResult_s;
+echo json_encode($response_o, JSON_UNESCAPED_UNICODE);
 
 
 

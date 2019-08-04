@@ -62,11 +62,16 @@ class DB {
             //$sql_s .= $and_s . " body LIKE %$params_o->text%";
             $this->array_push_assoc($placeholders_a, 'body', $params_o->text);
         }
-        return $placeholders_a;
-        return $sql_s;
+        $stmt_o = $this->pdo_o->prepare($sql_s);
+        $stmt_o->execute($placeholders_a);
+        $queryResult_s = '';
+        while($row_a = $stmt_o->fetch()) {
+            $queryResult_s .= ' ' . $row_a['id'];
+        }
+        return $queryResult_s;
     }
 
-    private function array_push_assoc(&$array, $key, $value){
+    private function array_push_assoc(&$array, $key, $value) {
         $array[$key] = $value;
         return $array;
     }
