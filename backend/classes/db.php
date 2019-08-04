@@ -58,12 +58,19 @@ class DB {
             $this->array_push_assoc($placeholders_a, 'county', $params_o->county);
         }
         if($params_o->text !== '') {
-            $sql_s .= $and_s . " body LIKE %:body%";
+            $sql_s .= $and_s . " (body LIKE :body OR header LIKE :header)";
             //$sql_s .= $and_s . " body LIKE %$params_o->text%";
-            $this->array_push_assoc($placeholders_a, 'body', $params_o->text);
+            $this->array_push_assoc($placeholders_a, 'body', "%$params_o->text%");
+            $this->array_push_assoc($placeholders_a, 'header', "%$params_o->text%");
         }
+        //$placeholders_a = ['body' => '%armborst%'];
+        //return json_encode($placeholders_a, JSON_UNESCAPED_UNICODE);
+        //return $sql_s;
+        //$placeholders_a = ['body' => '%armborst%'];
+        //$sql_s = "SELECT id FROM ads WHERE body LIKE :body";
         $stmt_o = $this->pdo_o->prepare($sql_s);
         $stmt_o->execute($placeholders_a);
+        //$stmt_o->execute(['body' => "%$%"]);
         $queryResult_s = '';
         while($row_a = $stmt_o->fetch()) {
             $queryResult_s .= ' ' . $row_a['id'];
