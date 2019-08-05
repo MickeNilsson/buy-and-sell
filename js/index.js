@@ -128,6 +128,7 @@
         event_o.stopPropagation();
         var code_i = event_o.keyCode || event_o.which;
         if(code_i === 13) {
+            event_o.preventDefault();
             $("#search-button").click();
         }
     });
