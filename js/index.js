@@ -124,11 +124,12 @@
         return validationError_b ? false : ad_o;
     }
 
-    $('#search-text').on('keypress', function(e) {
-        e.preventDefault();
-        var code = e.keyCode || e.which;
-        console.log('code: ' + code);
-        console.dir(e);
+    $('#search-text').on('keypress', function(event_o) {
+        event_o.stopPropagation();
+        var code_i = event_o.keyCode || event_o.which;
+        if(code_i === 13) {
+            $("#search-button").click();
+        }
     });
 
     $("#search-button").on("click", function (e) {
