@@ -34,6 +34,22 @@ class DB {
         return $stmt_o->execute($params_aa);
     }
 
+    /**
+     * Fetch all categories from the database table "categories"
+     * 
+     * @return array
+     */
+    public function fetchCategories() {
+        $sql_s = "SELECT * FROM category";
+        $stmt_o = $this->pdo_o->prepare($sql_s);
+        $stmt_o->execute();
+        $queryResult_ao = [];
+        while($row_o = $stmt_o->fetch()) {
+            array_push($queryResult_ao, $row_o);
+        }
+        return $queryResult_ao;
+    }
+
     public function search($params_o) {
         $sql_s = "SELECT id, type, category, county, header, price FROM ads WHERE";
         $and_s = "";
