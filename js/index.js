@@ -65,6 +65,7 @@
 
     $("#submit-ad").on("click", function () {
         var ad_o = validateAddAdForm();
+        delete ad_o.image;
         console.dir(ad_o);
         
         if (!ad_o) {
