@@ -4,8 +4,7 @@ require_once './backend/settings.php';
 require_once './backend/classes/db.php';
 
 $db_o = new DB($settings_a);
-$categories_ao = $db_o->fetchCategories();
-print_r($categories_ao);
+$categories_a = $db_o->fetchCategories();
 
 ?>
 <!DOCTYPE html>
@@ -70,38 +69,11 @@ print_r($categories_ao);
                         </button>
                         <div class="dropdown-menu scrollable-menu" aria-labelledby="search-category-button">
                             <a class="dropdown-item" href="#" data-category="0">Alla kategorier</a>
-                            <a class="dropdown-item" href="#" data-category="1">Accessoarer & klockor</a>
-                            <a class="dropdown-item" href="#" data-category="2">Bilar</a>
-                            <a class="dropdown-item" href="#" data-category="3">Bildelar & tillbehör</a>
-                            <a class="dropdown-item" href="#" data-category="4">Biljetter</a>
-                            <a class="dropdown-item" href="#" data-category="5">Bostad</a>
-                            <a class="dropdown-item" href="#" data-category="6">Bygg & trädgård</a>
-                            <a class="dropdown-item" href="#" data-category="7">Båtar</a>
-                            <a class="dropdown-item" href="#" data-category="8">Båtdelar & tillbehör</a>
-                            <a class="dropdown-item" href="#" data-category="9">Böcker</a>
-                            <a class="dropdown-item" href="#" data-category="10">Cyklar</a>
-                            <a class="dropdown-item" href="#" data-category="11">Datorer & tv-spel</a>
-                            <a class="dropdown-item" href="#" data-category="12">Djur</a>
-                            <a class="dropdown-item" href="#" data-category="13">Hobby</a>
-                            <a class="dropdown-item" href="#" data-category="14">Husgeråd & vitvaror</a>
-                            <a class="dropdown-item" href="#" data-category="15">Husvagnar & husbilar</a>
-                            <a class="dropdown-item" href="#" data-category="16">Hästar & ridsport</a>
-                            <a class="dropdown-item" href="#" data-category="17">Jakt & fiske</a>
-                            <a class="dropdown-item" href="#" data-category="18">Kläder & skor</a>
-                            <a class="dropdown-item" href="#" data-category="19">Lastbilar & truckar</a>
-                            <a class="dropdown-item" href="#" data-category="20">Leksaker</a>
-                            <a class="dropdown-item" href="#" data-category="21">Ljud & bild</a>
-                            <a class="dropdown-item" href="#" data-category="22">MC-delar & tillbehör</a>
-                            <a class="dropdown-item" href="#" data-category="23">Mopeder & A-traktor</a>
-                            <a class="dropdown-item" href="#" data-category="24">Motorcyklar</a>
-                            <a class="dropdown-item" href="#" data-category="25">Musikutrustning</a>
-                            <a class="dropdown-item" href="#" data-category="26">Möbler & heminredning</a>
-                            <a class="dropdown-item" href="#" data-category="27">Resor</a>
-                            <a class="dropdown-item" href="#" data-category="28">Skogs- & lantbruksmaskiner</a>
-                            <a class="dropdown-item" href="#" data-category="29">Snöskotrar</a>
-                            <a class="dropdown-item" href="#" data-category="30">Snöskoterdelar & tillbehör</a>
-                            <a class="dropdown-item" href="#" data-category="31">Sport & fritid</a>
-                            <a class="dropdown-item" href="#" data-category="32">Verktyg</a>
+                            <?php
+                                foreach($categories_a as $category_a) {
+                                    echo '<a class="dropdown-item" href="#" data-category="' . $category_a['id'] . '">' . $category_a['name'] . '</a>';
+                                }
+                            ?>
                         </div>
                     </div>
                 </li>
@@ -270,38 +242,11 @@ print_r($categories_ao);
                             <label for="category">Kategori <span class="text-danger">*</span></label>
                             <select class="form-control" id="category">
                                 <option value="0">Välj kategori</option>
-                                <option value="1">Accessoarer & klockor</option>
-                                <option value="2">Bilar</option>
-                                <option value="3">Bildelar & tillbehör</option>
-                                <option value="4">Biljetter</option>
-                                <option value="5">Biljetter</option>
-                                <option value="6">Bygg & trädgård</option>
-                                <option value="7">Båtar</option>
-                                <option value="8">Båtdelar & tillbehör</option>
-                                <option value="9">Böcker</option>
-                                <option value="10">Cyklar</option>
-                                <option value="11">Datorer & tv-spel</option>
-                                <option value="12">Djur</option>
-                                <option value="13">Hobby</option>
-                                <option value="14">Husgeråd & vitvaror</option>
-                                <option value="15">Husvagnar & husbilar</option>
-                                <option value="16">Hästar & ridsport</option>
-                                <option value="17">Jakt & fiske</option>
-                                <option value="18">Kläder & skor</option>
-                                <option value="19">Lastbilar & truckar</option>
-                                <option value="20">Leksaker</option>
-                                <option value="21">Ljud & bild</option>
-                                <option value="22">MC-delar & tillbehör</option>
-                                <option value="23">Mopeder & A-traktor</option>
-                                <option value="24">Motorcyklar</option>
-                                <option value="25">Musikutrustning</option>
-                                <option value="26">Möbler & heminredning</option>
-                                <option value="27">Resor</option>
-                                <option value="28">Skogs- & lantbruksmaskiner</option>
-                                <option value="29">Snöskotrar</option>
-                                <option value="30">Snöskoterdelar & tillbehör</option>
-                                <option value="31">Sport & fritid</option>
-                                <option value="32">Verktyg</option>
+                                <?php
+                                    foreach($categories_a as $category_a) {
+                                        echo '<option value="' . $category_a['id'] . '">' . $category_a['name'] . '</option>';
+                                    }
+                                ?>
                             </select>
                         </div>
                         <!-- Välj län - Select -->

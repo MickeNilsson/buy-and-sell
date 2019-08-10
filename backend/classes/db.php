@@ -37,7 +37,7 @@ class DB {
     /**
      * Fetch all categories from the database table "categories"
      * 
-     * @return array
+     * @return array 
      */
     public function fetchCategories() {
         $sql_s = "SELECT * FROM category";
