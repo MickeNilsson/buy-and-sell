@@ -19,17 +19,24 @@ class DB {
         }
     }
 
-    public function add($params_o) {
+    /**
+     * Adds a new row in the ads table
+     * 
+     * @param array $params_aa
+     * 
+     */
+    public function add($params_aa) {
 
         //$stmt_o = $this->pdo_o->prepare("SELECT * FROM `users` WHERE `lastname` = :lastname");
-        $sql_s = "INSERT INTO ads(type, category, county, header, body, price, email, sha1) "
-               . "VALUES ('$params_o->type', $params_o->category, $params_o->county, '$params_o->header', '$params_o->body', $params_o->price, '$params_o->email', '$params_o->sha1')";
-        
+        // $sql_s = "INSERT INTO ads(type, category, county, header, body, price, email, sha1) "
+        //        . "VALUES ('$params_o->type', $params_o->category, $params_o->county, '$params_o->header', '$params_o->body', $params_o->price, '$params_o->email', '$params_o->sha1')";
+        $sql_s = "INSERT INTO ads(type, category, county, header, body, price, email) "
+               . "VALUES (:type, :category, :county, :header, :body, :price, :email)";
         $stmt_o = $this->pdo_o->prepare($sql_s);
         // $stmt_o->execute([
         //     'lastname' => 'Nilsson'
         // ]);
-        return $stmt_o->execute();
+        return $stmt_o->execute($params_aa);
         // while ($row = $stmt_o->fetch()) {
         //     echo $row['firstname'] . "\n";
         // }

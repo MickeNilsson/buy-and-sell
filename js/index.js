@@ -65,6 +65,8 @@
 
     $("#submit-ad").on("click", function () {
         var ad_o = validateAddAdForm();
+        console.dir(ad_o);
+        return;
         if (!ad_o) {
             return;
         }
@@ -106,7 +108,7 @@
 
     function validateAddAdForm() {
         var ad_o = {};
-        ad_o.type = $('input[name="type"]:checked').val();
+        ad_o.type = +$('input[name="type"]:checked').val();
         var validationError_b = false;
         $(
             "#add-ad-form input, " + "#add-ad-form select, " + "#add-ad-form textarea"

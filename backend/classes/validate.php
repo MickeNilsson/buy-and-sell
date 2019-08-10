@@ -28,7 +28,8 @@ class Validate {
      *                          email - String (<= 100 characters)
      *                          header - String (1 - 200 characters)
      *                          price - Integer (>= 0)
-     *                          type - String ("buy" or "sell")
+     *                          type - Integer (0 - 2)
+     *                          phone - String (6 - 20 characters)
      * 
      * @return boolean Returns boolean false if any of the properties doesn't validate,
      *               otherwise returns true.
