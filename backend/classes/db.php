@@ -36,7 +36,8 @@ class DB {
         // $stmt_o->execute([
         //     'lastname' => 'Nilsson'
         // ]);
-        return $stmt_o->execute($params_aa);
+        $stmt_o->execute($params_aa);
+        return $stmt_o->affected_rows;
         // while ($row = $stmt_o->fetch()) {
         //     echo $row['firstname'] . "\n";
         // }

@@ -66,7 +66,7 @@
     $("#submit-ad").on("click", function () {
         var ad_o = validateAddAdForm();
         console.dir(ad_o);
-        return;
+        
         if (!ad_o) {
             return;
         }
@@ -82,23 +82,24 @@
             success: function (response_o) {
                 $("#loader").hide();
                 $("#block").hide();
-                if (response_o.status === "error") {
-                    for (var key in response_o.description) {
-                        if (response_o.description.hasOwnProperty(key)) {
-                            if (response_o.description[key] === false) {
-                                $("#" + key).addClass("border-danger");
-                            }
-                        }
-                    }
-                } else {
-                    // $('#add-ad-form').addClass('collapse');
-                    // $('#submit-ad').addClass('collapse');
-                    // $('#success-text').removeClass('collapse');
-                    $("#add-ad-form").hide();
-                    $("#submit-ad").hide();
-                    $("#success-text").show();
-                    //$("#add-ad-modal").modal("hide");
-                }
+                console.dir(response_o);
+                // if (response_o.status === "error") {
+                //     for (var key in response_o.description) {
+                //         if (response_o.description.hasOwnProperty(key)) {
+                //             if (response_o.description[key] === false) {
+                //                 $("#" + key).addClass("border-danger");
+                //             }
+                //         }
+                //     }
+                // } else {
+                //     // $('#add-ad-form').addClass('collapse');
+                //     // $('#submit-ad').addClass('collapse');
+                //     // $('#success-text').removeClass('collapse');
+                //     $("#add-ad-form").hide();
+                //     $("#submit-ad").hide();
+                //     $("#success-text").show();
+                //     //$("#add-ad-modal").modal("hide");
+                // }
             },
             failure: function (errMsg) {
                 alert(errMsg);
