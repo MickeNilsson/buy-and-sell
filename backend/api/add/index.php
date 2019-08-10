@@ -13,9 +13,10 @@ $validate_o = new Validate();
 $db_o = new DB($settings_a);
 
 $newAd_aa = json_decode(file_get_contents('php://input'), true);
-$affectedRows_i = $db_o->add($newAd_aa);
+// print_r($newAd_aa);exit;
+$sqlInsertSuccess_b = $db_o->add($newAd_aa);
 $response_o = new stdClass();
-$response_o->affectedRows = $affectedRows_i;
+$response_o->success = $sqlInsertSuccess_b;
 echo json_encode($response_o, JSON_UNESCAPED_UNICODE);
 
 // $successfulValidation_b = $validate_o->validateAll($newAd_o);

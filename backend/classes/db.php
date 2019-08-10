@@ -24,23 +24,14 @@ class DB {
      * 
      * @param array $params_aa
      * 
+     * @return boolean Was the SQL insert successful?
+     * 
      */
     public function add($params_aa) {
-
-        //$stmt_o = $this->pdo_o->prepare("SELECT * FROM `users` WHERE `lastname` = :lastname");
-        // $sql_s = "INSERT INTO ads(type, category, county, header, body, price, email, sha1) "
-        //        . "VALUES ('$params_o->type', $params_o->category, $params_o->county, '$params_o->header', '$params_o->body', $params_o->price, '$params_o->email', '$params_o->sha1')";
         $sql_s = "INSERT INTO ads(type, category, county, header, body, price, email) "
                . "VALUES (:type, :category, :county, :header, :body, :price, :email)";
         $stmt_o = $this->pdo_o->prepare($sql_s);
-        // $stmt_o->execute([
-        //     'lastname' => 'Nilsson'
-        // ]);
-        $stmt_o->execute($params_aa);
-        return $stmt_o->affected_rows;
-        // while ($row = $stmt_o->fetch()) {
-        //     echo $row['firstname'] . "\n";
-        // }
+        return $stmt_o->execute($params_aa);
     }
 
     public function search($params_o) {
