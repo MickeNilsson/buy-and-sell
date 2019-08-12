@@ -35,12 +35,28 @@ class DB {
     }
 
     /**
-     * Fetch all categories from the database table "categories"
+     * Fetch all categories from the database table "category"
      * 
      * @return array 
      */
     public function fetchCategories() {
         $sql_s = "SELECT * FROM category";
+        $stmt_o = $this->pdo_o->prepare($sql_s);
+        $stmt_o->execute();
+        $queryResult_ao = [];
+        while($row_o = $stmt_o->fetch()) {
+            array_push($queryResult_ao, $row_o);
+        }
+        return $queryResult_ao;
+    }
+
+    /**
+     * Fetch all counties from the database table "county"
+     * 
+     * @return array 
+     */
+    public function fetchCounties() {
+        $sql_s = "SELECT * FROM county";
         $stmt_o = $this->pdo_o->prepare($sql_s);
         $stmt_o->execute();
         $queryResult_ao = [];

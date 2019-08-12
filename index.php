@@ -5,6 +5,7 @@ require_once './backend/classes/db.php';
 
 $db_o = new DB($settings_a);
 $categories_a = $db_o->fetchCategories();
+$counties_a = $db_o->fetchCounties();
 
 ?>
 <!DOCTYPE html>
@@ -86,29 +87,11 @@ $categories_a = $db_o->fetchCategories();
                         </button>
                         <div class="dropdown-menu scrollable-menu" aria-labelledby="search-county-button">
                             <a class="dropdown-item" href="#" data-county="0">Hela Sverige</a>
-                            <a class="dropdown-item" href="#" data-county="1">Blekinge</a>
-                            <a class="dropdown-item" href="#" data-county="2">Dalarna</a>
-                            <a class="dropdown-item" href="#" data-county="3">Gotland</a>
-                            <a class="dropdown-item" href="#" data-county="4">Gävleborg</a>
-                            <a class="dropdown-item" href="#" data-county="5">Göteborg</a>
-                            <a class="dropdown-item" href="#" data-county="6">Halland</a>
-                            <a class="dropdown-item" href="#" data-county="7">Jämtland</a>
-                            <a class="dropdown-item" href="#" data-county="8">Jönköping</a>
-                            <a class="dropdown-item" href="#" data-county="9">Kalmar</a>
-                            <a class="dropdown-item" href="#" data-county="10">Kronoberg</a>
-                            <a class="dropdown-item" href="#" data-county="11">Norrbotten</a>
-                            <a class="dropdown-item" href="#" data-county="12">Skaraborg</a>
-                            <a class="dropdown-item" href="#" data-county="13">Skåne</a>
-                            <a class="dropdown-item" href="#" data-county="14">Stockholm</a>
-                            <a class="dropdown-item" href="#" data-county="15">Södermanland</a>
-                            <a class="dropdown-item" href="#" data-county="16">Uppsala</a>
-                            <a class="dropdown-item" href="#" data-county="17">Värmland</a>
-                            <a class="dropdown-item" href="#" data-county="18">Västerbotten</a>
-                            <a class="dropdown-item" href="#" data-county="19">Västernorrland</a>
-                            <a class="dropdown-item" href="#" data-county="20">Västmanland</a>
-                            <a class="dropdown-item" href="#" data-county="21">Älvsborg</a>
-                            <a class="dropdown-item" href="#" data-county="22">Örebro</a>
-                            <a class="dropdown-item" href="#" data-county="23">Östergötland</a>
+                            <?php
+                                foreach($counties_a as $county_a) {
+                                    echo '<a class="dropdown-item" href="#" data-county="' . $county_a['id'] . '">' . $county_a['name'] . '</a>';
+                                }
+                            ?>
                         </div>
                     </div>
                 </li>
@@ -254,29 +237,11 @@ $categories_a = $db_o->fetchCategories();
                             <label for="county">Välj <span class="text-danger">*</span> </label>
                             <select class="form-control" id="county">
                                 <option value="0">Välj län</option>
-                                <option value="1">Blekinge</option>
-                                <option value="2">Dalarna</option>
-                                <option value="3">Gotland</option>
-                                <option value="4">Gävleborg</option>
-                                <option value="5">Göteborg</option>
-                                <option value="6">Halland</option>
-                                <option value="7">Jämtland</option>
-                                <option value="8">Jönköping</option>
-                                <option value="9">Kalmar</option>
-                                <option value="10">Kronoberg</option>
-                                <option value="11">Norrbotten</option>
-                                <option value="12">Skaraborg</option>
-                                <option value="13">Skåne</option>
-                                <option value="14">Stockholm</option>
-                                <option value="15">Södermanland</option>
-                                <option value="16">Uppsala</option>
-                                <option value="17">Värmland</option>
-                                <option value="18">Västerbotten</option>
-                                <option value="19">Västernorrland</option>
-                                <option value="20">Västmanland</option>
-                                <option value="21">Älvsborg</option>
-                                <option value="22">Örebro</option>
-                                <option value="23">Östergötland</option>
+                                <?php
+                                    foreach($counties_a as $county_a) {
+                                        echo '<option value="' . $county_a['id'] . '">' . $county_a['name'] . '</option>';
+                                    }
+                                ?>
                             </select>
                         </div>
 
