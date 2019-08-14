@@ -73,6 +73,29 @@
         }
         $("#loader").show();
         $("#block").show();
+        // If the user has added an image, upload it first
+        $("#myForm").submit(function(e){
+            e.stopPropagation();
+               e.preventDefault();
+
+               var formData = new FormData($(this)[0]);
+
+               $.ajax({
+                 url: 'fileupload.php',
+                 type: 'POST',
+                 data: formData,
+                 async: false,
+                 cache: false,
+                 contentType: false,
+                 enctype: 'multipart/form-data',
+                 processData: false,
+                 success: function (response) {
+                   alert(response);
+                 }
+               });
+
+               return false;
+             });
         $.ajax({
             type: "POST",
             url: "http://www.digizone.se/buy-and-sell/backend/api/add/",

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" id="file" />
+    <input id="send-btn" type="button" value="Send" />
+    <script src="js/jquery.min.js"></script>
+    <script>
+        $('#send-btn').on('click', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            //var formData = new FormData($(this)[0]);
+            var formData = new FormData($('#file')[0]);
+            $.ajax({
+                url: 'fileupload.php',
+                type: 'POST',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                processData: false,
+                success: function (response) {
+                    alert(response);
+                }
+            });
+            return false;
+        });
+    </script>
+</body>
+</html>
