@@ -7,16 +7,24 @@
     <title>Document</title>
 </head>
 <body>
-    <div>Version 1</div>
-    <input type="file" id="file" />
-    <input id="send-btn" type="button" value="Send" />
+  
+ 
+
+ 
+    <div>Version 2</div>
+    <form id="my-form">
+        <input type="file" id="file" />
+        <input id="send-btn" type="submit" value="Send" />
+    </form>
+    
+    
     <script src="js/jquery.min.js"></script>
     <script>
-        $('#send-btn').on('click', function(e) {
+        $('#my-form').on('submit', function(e) {
             e.stopPropagation();
             e.preventDefault();
-            //var formData = new FormData($(this)[0]);
-            var formData = new FormData(document.getElementById('file'));
+            var formData = new FormData($(this)[0]);
+            //var formData = new FormData(document.getElementById('file'));
             $.ajax({
                 url: './fileupload-test.php',
                 type: 'POST',
