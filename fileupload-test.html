@@ -17,7 +17,7 @@
             //var formData = new FormData($(this)[0]);
             var formData = new FormData($('#file')[0]);
             $.ajax({
-                url: 'fileupload.php',
+                url: './fileupload-test.php',
                 type: 'POST',
                 data: formData,
                 async: false,
