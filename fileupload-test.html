@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
+    <div>Version 1</div>
     <input type="file" id="file" />
     <input id="send-btn" type="button" value="Send" />
     <script src="js/jquery.min.js"></script>
@@ -15,7 +16,7 @@
             e.stopPropagation();
             e.preventDefault();
             //var formData = new FormData($(this)[0]);
-            var formData = new FormData($('#file')[0]);
+            var formData = new FormData(document.getElementById('file'));
             $.ajax({
                 url: './fileupload-test.php',
                 type: 'POST',
