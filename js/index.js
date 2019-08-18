@@ -64,6 +64,28 @@
     });
 
     $("#submit-ad").on("click", function () {
+        var formData_o = new FormData();
+        var imageToUpload_o = document.getElementById('image').files[0];
+        // If the user has added an image, upload it
+        if(imageToUpload_o) {
+            formData_o.set('image', imageToUpload_o);
+            $.ajax({
+                url: './backend/api/add-image/index.php',
+                type: 'POST',
+                data: formData_o,
+                async: true,
+                cache: false,
+                contentType: false,
+                enctype: 'multipart/form-data',
+                processData: false,
+                success: function (response) {
+                    console.dir(response);
+                    $("#loader").hide();
+                    $("#block").hide();
+                }
+            });
+        }
+        return;
         var ad_o = validateAddAdForm();
         delete ad_o.image;
         delete ad_o.phone;
@@ -73,29 +95,6 @@
         }
         $("#loader").show();
         $("#block").show();
-        // If the user has added an image, upload it first
-        $("#myForm").submit(function(e){
-            e.stopPropagation();
-               e.preventDefault();
-
-               var formData = new FormData($(this)[0]);
-
-               $.ajax({
-                 url: 'fileupload.php',
-                 type: 'POST',
-                 data: formData,
-                 async: false,
-                 cache: false,
-                 contentType: false,
-                 enctype: 'multipart/form-data',
-                 processData: false,
-                 success: function (response) {
-                   alert(response);
-                 }
-               });
-
-               return false;
-             });
         $.ajax({
             type: "POST",
             url: "http://www.digizone.se/buy-and-sell/backend/api/add/",
@@ -104,8 +103,31 @@
             contentType: "text/plain",
             //dataType: 'json',
             success: function (response_o) {
-                $("#loader").hide();
-                $("#block").hide();
+                var formData_o = new FormData();
+                var imageToUpload_o = document.getElementById('file').files[0];
+                // If the user has added an image, upload it
+                if(imageToUpload_o) {
+                    formData_o.set('image', imageToUpload_o);
+                    $.ajax({
+                        url: 'fileupload-test.php',
+                        type: 'POST',
+                        data: formData_o,
+                        async: true,
+                        cache: false,
+                        contentType: false,
+                        enctype: 'multipart/form-data',
+                        processData: false,
+                        success: function (response) {
+                            console.dir(response);
+                            $("#loader").hide();
+                            $("#block").hide();
+                        }
+                    });
+                } else {
+                    $("#loader").hide();
+                    $("#block").hide();
+                }
+                
                 console.dir(response_o);
                 // if (response_o.status === "error") {
                 //     for (var key in response_o.description) {
