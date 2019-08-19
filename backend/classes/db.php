@@ -31,7 +31,8 @@ class DB {
         $sql_s = "INSERT INTO ads(type, category, county, header, body, price, email) "
                . "VALUES (:type, :category, :county, :header, :body, :price, :email)";
         $stmt_o = $this->pdo_o->prepare($sql_s);
-        return $stmt_o->execute($params_aa);
+        $stmt_o->execute($params_aa);
+        return $this->pdo_o->lastInsertId();
     }
 
     /**

@@ -14,9 +14,9 @@ $db_o = new DB($settings_a);
 
 $newAd_aa = json_decode(file_get_contents('php://input'), true);
 // print_r($newAd_aa);exit;
-$sqlInsertSuccess_b = $db_o->add($newAd_aa);
+$id_i = $db_o->add($newAd_aa);
 $response_o = new stdClass();
-$response_o->success = $sqlInsertSuccess_b;
+$response_o->success = $id_i;
 echo json_encode($response_o, JSON_UNESCAPED_UNICODE);
 
 // $successfulValidation_b = $validate_o->validateAll($newAd_o);
