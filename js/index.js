@@ -64,28 +64,6 @@
     });
 
     $("#submit-ad").on("click", function () {
-        var formData_o = new FormData();
-        var imageToUpload_o = document.getElementById('image').files[0];
-        // If the user has added an image, upload it
-        if(imageToUpload_o) {
-            formData_o.set('image', imageToUpload_o);
-            $.ajax({
-                url: './backend/api/add-image/index.php',
-                type: 'POST',
-                data: formData_o,
-                async: true,
-                cache: false,
-                contentType: false,
-                enctype: 'multipart/form-data',
-                processData: false,
-                success: function (response) {
-                    console.dir(response);
-                    $("#loader").hide();
-                    $("#block").hide();
-                }
-            });
-        }
-        return;
         var ad_o = validateAddAdForm();
         delete ad_o.image;
         delete ad_o.phone;
@@ -97,19 +75,19 @@
         $("#block").show();
         $.ajax({
             type: "POST",
-            url: "http://www.digizone.se/buy-and-sell/backend/api/add/",
+            url: './backend/api/add/index.php',
             data: JSON.stringify(ad_o),
             //contentType: 'application/json; charset=utf-8',
             contentType: "text/plain",
             //dataType: 'json',
             success: function (response_o) {
                 var formData_o = new FormData();
-                var imageToUpload_o = document.getElementById('file').files[0];
+                var imageToUpload_o = document.getElementById('image').files[0];
                 // If the user has added an image, upload it
                 if(imageToUpload_o) {
                     formData_o.set('image', imageToUpload_o);
                     $.ajax({
-                        url: 'fileupload-test.php',
+                        url: './backend/api/add-image/index.php',
                         type: 'POST',
                         data: formData_o,
                         async: true,

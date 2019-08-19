@@ -14,8 +14,14 @@ if(!empty($_FILES['image'])) {
 } else {
     $result_b = false;
 }
+
 $response_o = new stdClass();
-$response_o->status = $result_b ? 'success' : 'error';
+if($result_b == true) {
+    $response_o->status = 'success';
+} else {
+    $response_o->status = 'error';
+}
+//$result_b ? 'success' : 'error';
 $response_s = json_encode($response_o, JSON_UNESCAPED_UNICODE);
 echo $response_s;
 
