@@ -1,5 +1,193 @@
-(function ($) {
-    "use strict";
+$(document).ready(function() {
+    'use strict';
+
+    var invalidFields_o = {};
+
+    // Event listeners
+    $('#post-new-ad-form')
+        .on('change keyup', validateField)
+        .on('submit', postNewAd);
+    
+    // Event handlers
+    function validateField(e) {
+        var field_o = e.target || e;
+        var valid_b = true;
+        switch(field_o.id) {
+            case 'body':
+                if(field_o.value.length > 400) {
+                    field_o.value = field_o.value.substr(0, 400);
+                } else if(field_o.value.length === 0) {
+                    valid_b = false;
+                }
+                break;
+            case 'header':
+                if(field_o.value.length > 50) {
+                    field_o.value = field_o.value.substr(0, 50);
+                } else if(field_o.value.length === 0) {
+                    valid_b = false;
+                }
+                break;
+            case 'price':
+                if(field_o.value.length > 10) {
+                    field_o.value = field_o.value.substr(0, 10);
+                }
+                if(isNaN(parseInt(field_o.value))) {
+                    field_o.value = '';
+                    valid_b = false;
+                } else {
+                    field_o.value = parseInt(field_o.value);
+                }
+                break;
+            case 'category': case 'county': 
+                if(field_o.value === '0') {
+                    valid_b =  false;
+                }
+                break;
+            case 'email': 
+                valid_b = field_o.value.match(/(.+)@(.+){2,}\.(.+){2,}/);
+                break;
+            case 'phone':
+                if(field_o.value.length > 20) {
+                    field_o.value = field_o.value.substr(0, 20);
+                }
+                break;
+            case 'sell': case 'buy': case 'rent-out': case 'type':
+                var isChecked_b = $('input[name="type"]:checked').length;
+                field_o.id = 'type';
+                if(!isChecked_b) {
+                    valid_b = false;
+                }
+                break;
+        }
+        if(valid_b) {
+            setValid(field_o.id);
+        } else {
+            setInvalid(field_o.id);
+        }
+        return valid_b;
+    }
+        
+    function postNewAd(e) {
+
+        e.preventDefault();
+        e.stopPropagation();
+        var fieldIsValid_b,
+            fields_o = {
+                'body': null,
+                'category': null,
+                'county': null,
+                'email': null,
+                'header': null,
+                'phone': null,
+                'price': null,
+                'type': null
+            },
+            field_s,
+            formIsValid_b = true;
+        for(field_s in fields_o) {
+            if(fields_o.hasOwnProperty(field_s)) {
+                fields_o[field_s] = document.getElementById(field_s);
+                fieldIsValid_b = validateField(fields_o[field_s]);
+                if(fieldIsValid_b) {
+                    fields_o[field_s] = fields_o[field_s].value || $('input[name="type"]:checked').val();   
+                } else {
+                    formIsValid_b = false;
+                }
+            }
+        }
+        console.dir(fields_o);
+        if(!formIsValid_b) {
+            return;
+        }
+        return
+        $('#loader, #block').show();
+        $.ajax({
+            type: 'POST',
+            url: './backend/api/add/index.php',
+            data: JSON.stringify(fields_o),
+            contentType: 'text/plain',
+            success: function (response_o) {
+                var formData_o = new FormData();
+                var imageToUpload_o = document.getElementById('image').files[0];
+                // If the user has added an image, upload it
+                if(imageToUpload_o) {
+                    formData_o.set('image', imageToUpload_o);
+                    $.ajax({
+                        url: './backend/api/add-image/index.php',
+                        type: 'POST',
+                        data: formData_o,
+                        async: true,
+                        cache: false,
+                        contentType: false,
+                        enctype: 'multipart/form-data',
+                        processData: false,
+                        success: function (response) {
+                            console.dir(response);
+                            $("#loader").hide();
+                            $("#block").hide();
+                        }
+                    });
+                } else {
+                    $("#loader").hide();
+                    $("#block").hide();
+                }
+                
+                console.dir(response_o);
+                // if (response_o.status === "error") {
+                //     for (var key in response_o.description) {
+                //         if (response_o.description.hasOwnProperty(key)) {
+                //             if (response_o.description[key] === false) {
+                //                 $("#" + key).addClass("border-danger");
+                //             }
+                //         }
+                //     }
+                // } else {
+                //     // $('#post-new-ad-form').addClass('collapse');
+                //     // $('#submit-ad').addClass('collapse');
+                //     // $('#success-text').removeClass('collapse');
+                //     $("#post-new-ad-form").hide();
+                //     $("#submit-ad").hide();
+                //     $("#success-text").show();
+                //     //$("#post-new-ad-modal").modal("hide");
+                // }
+            },
+            failure: function (errMsg) {
+                alert(errMsg);
+            }
+        });
+    }
+
+    // Helper functions
+    function setInvalid(field_s) {
+        $('#' + field_s).addClass('invalid');
+        invalidFields_o[field_s] = true;
+    }
+
+    function setValid(field_s) {
+        $('#' + field_s).removeClass('invalid');
+        delete invalidFields_o[field_s];
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     $("#search-county .dropdown-item").on("click", function (e) {
         $("#search-county-button").text(e.target.text);
         $("#search-county-button").attr("data-county", e.target.dataset.county);
@@ -59,97 +247,13 @@
         //console.log($('#ad').val().length);
     });
 
-    $("#add-ad-modal").on("hidden.bs.modal", function () {
+    $("#post-new-ad-modal").on("hidden.bs.modal", function () {
         resetForm();
     });
 
-    $("#submit-ad").on("click", function () {
-        var ad_o = validateAddAdForm();
-        delete ad_o.image;
-        delete ad_o.phone;
-        console.dir(ad_o);
-        if (!ad_o) {
-            return;
-        }
-        $("#loader").show();
-        $("#block").show();
-        $.ajax({
-            type: "POST",
-            url: './backend/api/add/index.php',
-            data: JSON.stringify(ad_o),
-            //contentType: 'application/json; charset=utf-8',
-            contentType: "text/plain",
-            //dataType: 'json',
-            success: function (response_o) {
-                var formData_o = new FormData();
-                var imageToUpload_o = document.getElementById('image').files[0];
-                // If the user has added an image, upload it
-                if(imageToUpload_o) {
-                    formData_o.set('image', imageToUpload_o);
-                    $.ajax({
-                        url: './backend/api/add-image/index.php',
-                        type: 'POST',
-                        data: formData_o,
-                        async: true,
-                        cache: false,
-                        contentType: false,
-                        enctype: 'multipart/form-data',
-                        processData: false,
-                        success: function (response) {
-                            console.dir(response);
-                            $("#loader").hide();
-                            $("#block").hide();
-                        }
-                    });
-                } else {
-                    $("#loader").hide();
-                    $("#block").hide();
-                }
-                
-                console.dir(response_o);
-                // if (response_o.status === "error") {
-                //     for (var key in response_o.description) {
-                //         if (response_o.description.hasOwnProperty(key)) {
-                //             if (response_o.description[key] === false) {
-                //                 $("#" + key).addClass("border-danger");
-                //             }
-                //         }
-                //     }
-                // } else {
-                //     // $('#add-ad-form').addClass('collapse');
-                //     // $('#submit-ad').addClass('collapse');
-                //     // $('#success-text').removeClass('collapse');
-                //     $("#add-ad-form").hide();
-                //     $("#submit-ad").hide();
-                //     $("#success-text").show();
-                //     //$("#add-ad-modal").modal("hide");
-                // }
-            },
-            failure: function (errMsg) {
-                alert(errMsg);
-            }
-        });
-    });
+    
 
-    function validateAddAdForm() {
-        var ad_o = {};
-        ad_o.type = +$('input[name="type"]:checked').val();
-        var validationError_b = false;
-        $(
-            "#add-ad-form input, " + "#add-ad-form select, " + "#add-ad-form textarea"
-        ).each(function () {
-            if ($(this).prop("type") !== "radio") {
-                var fieldId_s = $(this).prop("id");
-                var fieldValue_m = validateField(fieldId_s);
-                if (fieldValue_m === false) {
-                    validationError_b = true;
-                } else {
-                    ad_o[fieldId_s] = fieldValue_m;
-                }
-            }
-        });
-        return validationError_b ? false : ad_o;
-    }
+
 
     $('#search-text').on('keypress', function(event_o) {
         event_o.stopPropagation();
@@ -191,13 +295,11 @@
         });
     });
 
-    $("#add-ad-form").on("change keyup", function (e) {
-        validateField(e.target.id);
-    });
+    
 
     function resetForm() {
         $("#success-text").hide();
-        $("#add-ad-form").show();
+        $("#post-new-ad-form").show();
         $("#submit-ad").show();
         $("#sell")
             .prop("checked", true)
@@ -223,57 +325,5 @@
         $("#phone")
             .val("")
             .removeClass("border-danger");
-    }
-
-    function validateField(fieldId_s) {
-        var fieldValue_m;
-        switch (fieldId_s) {
-            case "category":
-            case "county":
-                fieldValue_m = parseInt($("#" + fieldId_s + " option:selected").val());
-                if (fieldValue_m === 0) {
-                    fieldValue_m = false;
-                }
-                break;
-            case "header":
-                fieldValue_m = $("#header").val();
-                if (fieldValue_m.length < 1 || fieldValue_m.length > 200) {
-                    fieldValue_m = false;
-                }
-                break;
-            case "body":
-                fieldValue_m = $("#body").val();
-                if (fieldValue_m.length < 1 || fieldValue_m.length > 400) {
-                    fieldValue_m = false;
-                }
-                break;
-            case "price":
-                fieldValue_m = parseInt(
-                    $("#price")
-                        .val()
-                        .replace(/\D/g, "")
-                );
-                if (isNaN(fieldValue_m)) {
-                    fieldValue_m = false;
-                }
-                break;
-            case "email":
-                fieldValue_m = $("#email").val();
-                if (!fieldValue_m.match(/(.+)@(.+){2,}\.(.+){2,}/)) {
-                    fieldValue_m = false;
-                }
-                break;
-            case "phone":
-                fieldValue_m = $("#phone")
-                    .val()
-                    .substr(0, 20);
-                break;
-        }
-        if (fieldValue_m === false) {
-            $("#" + fieldId_s).addClass("border-danger");
-        } else {
-            $("#" + fieldId_s).removeClass("border-danger");
-        }
-        return fieldValue_m;
-    }
-})(jQuery);
+    }    
+});

@@ -27,9 +27,9 @@ class DB {
      * @return boolean Was the SQL insert successful?
      * 
      */
-    public function postNewAd($params_aa) {
-        $sql_s = 'INSERT INTO ads(type, category, county, header, body, price, email) '
-               . 'VALUES (:type, :category, :county, :header, :body, :price, :email)';
+    public function add($params_aa) {
+        $sql_s = "INSERT INTO ads(type, category, county, header, body, price, email) "
+               . "VALUES (:type, :category, :county, :header, :body, :price, :email)";
         $stmt_o = $this->pdo_o->prepare($sql_s);
         $stmt_o->execute($params_aa);
         return $this->pdo_o->lastInsertId();

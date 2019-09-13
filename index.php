@@ -32,6 +32,13 @@ $counties_a = $db_o->fetchCounties();
         .btn-outline-secondary {
             border-color: #ccc;
         }
+
+        .invalid {
+            border: 1px solid red;
+            border-radius: 4px;
+            display: inline-block;
+            padding: 4px;
+        }
     </style>
 </head>
 
@@ -120,7 +127,7 @@ $counties_a = $db_o->fetchCounties();
             </ul>
 
             <button id="place-add-button" class="btn btn-success my-2 my-sm-0" data-toggle="modal"
-                data-target="#add-ad-modal">
+                data-target="#post-new-ad-modal">
                 Sätt in annons
             </button>
         </div>
@@ -188,24 +195,22 @@ $counties_a = $db_o->fetchCounties();
 
     <div id="loader"></div>
 
-    <div class="modal fade" id="add-ad-modal" tabindex="-1" role="dialog" aria-labelledby="add-ad-modal-label"
-        aria-hidden="true">
+    <div class="modal fade" id="post-new-ad-modal" tabindex="-1" role="dialog" aria-labelledby="post-new-ad-modal-label" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="add-ad-modal-label">Sätt in annons</h5>
+                    <h5 class="modal-title" id="post-new-ad-modal-label">Sätt in annons</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <p class="collapse" id="success-text">Din annons har nu blivit publicerad.</p>
-                    <form id="add-ad-form">
-                        <div class="form-group">
+                    <form id="post-new-ad-form">
+                        <div id="type" class="form-group">
                             <!-- Säljes - Radioknapp -->
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" id="sell" value="0"
-                                    checked />
+                                <input class="form-check-input" type="radio" name="type" id="sell" value="0" />
                                 <label class="form-check-label" for="sell-radio">Säljes</label>
                             </div>
                             <!-- Köpes - Radioknapp -->
@@ -251,7 +256,7 @@ $counties_a = $db_o->fetchCounties();
                         </div>
                         <div class="form-group">
                             <label for="body">Annonstext <span class="text-danger">*</span></label>
-                            <textarea class="form-control" id="body" rows="3"></textarea>
+                            <textarea class="form-control" id="body" rows="3" placeholder="Annonstext"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="price">Pris <span class="text-danger">*</span></label>
@@ -270,11 +275,11 @@ $counties_a = $db_o->fetchCounties();
                             <label for="image">Bild</label>
                             <input type="file" class="form-control-file" id="image" />
                         </div>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Stäng" />
+                            <input id="post-new-ad-button" type="submit" class="btn btn-primary" value="Skicka" />
+                        </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Stäng" />
-                    <input id="submit-ad" type="button" class="btn btn-primary" value="Skicka" />
                 </div>
             </div>
         </div>
