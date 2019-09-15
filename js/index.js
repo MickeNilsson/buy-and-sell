@@ -3,12 +3,121 @@ $(document).ready(function() {
 
     var invalidFields_o = {};
 
-    // Event listeners
+    // Event listeners //////////////////////////////
+
     $('#post-new-ad-form')
         .on('change keyup', validateField)
         .on('submit', postNewAd);
     
-    // Event handlers
+    $('#image-upload')
+        .on('change', prepareFileUpload);
+    
+    // Event handlers ///////////////////////////////
+
+    function prepareFileUpload(e) {
+        
+        var file_o = document.getElementById('image-upload').files[0];
+        console.dir(file_o);
+        if(file_o.type !== 'image/jpeg' && file_o.type !== 'image/png') {
+            $('#filename').text('Filen måste vara av typen jpg eller png');
+            return;
+        }
+        if(file_o.size > 10000000) {
+            $('#filename').text('Filen måste vara mindre än 10MB stor');
+            return;
+        }
+        $('#filename').text(file_o.name);
+    }
+
+    function postNewAd(e) {
+
+        e.preventDefault();
+        e.stopPropagation();
+        var fieldIsValid_b,
+            fields_o = {
+                'body': null,
+                'category': null,
+                'county': null,
+                'email': null,
+                'header': null,
+                'phone': null,
+                'price': null,
+                'type': null
+            },
+            field_s,
+            formIsValid_b = true;
+        for(field_s in fields_o) {
+            if(fields_o.hasOwnProperty(field_s)) {
+                fields_o[field_s] = document.getElementById(field_s);
+                fieldIsValid_b = validateField(fields_o[field_s]);
+                if(fieldIsValid_b) {
+                    fields_o[field_s] = fields_o[field_s].value || $('input[name="type"]:checked').val();   
+                } else {
+                    formIsValid_b = false;
+                }
+            }
+        }
+        console.dir(fields_o);
+        // if(!formIsValid_b) {
+        //     return;
+        // }
+        $('#loader, #block').show();
+        $.ajax({
+            type: 'POST',
+            url: './backend/api/add/index.php',
+            data: JSON.stringify(fields_o),
+            contentType: 'text/plain',
+            success: function (response_o) {
+                var formData_o = new FormData();
+                var imageToUpload_o = document.getElementById('image-upload').files[0];
+                // If the user has added an image, upload it
+                if(imageToUpload_o) {
+                    formData_o.set('image', imageToUpload_o);
+                    $.ajax({
+                        url: './api/upload-image/index.php',
+                        type: 'POST',
+                        data: formData_o,
+                        async: true,
+                        cache: false,
+                        contentType: false,
+                        enctype: 'multipart/form-data',
+                        processData: false,
+                        success: function (response) {
+                            console.dir(response);
+                            $("#loader").hide();
+                            $("#block").hide();
+                        }
+                    });
+                } else {
+                    $("#loader").hide();
+                    $("#block").hide();
+                }
+                
+                console.dir(response_o);
+                // if (response_o.status === "error") {
+                //     for (var key in response_o.description) {
+                //         if (response_o.description.hasOwnProperty(key)) {
+                //             if (response_o.description[key] === false) {
+                //                 $("#" + key).addClass("border-danger");
+                //             }
+                //         }
+                //     }
+                // } else {
+                //     // $('#post-new-ad-form').addClass('collapse');
+                //     // $('#submit-ad').addClass('collapse');
+                //     // $('#success-text').removeClass('collapse');
+                //     $("#post-new-ad-form").hide();
+                //     $("#submit-ad").hide();
+                //     $("#success-text").show();
+                //     //$("#post-new-ad-modal").modal("hide");
+                // }
+            },
+            failure: function (errMsg) {
+                alert(errMsg);
+            }
+        });
+    }
+
     function validateField(e) {
         var field_o = e.target || e;
         var valid_b = true;
@@ -67,95 +176,7 @@ $(document).ready(function() {
         return valid_b;
     }
         
-    function postNewAd(e) {
 
-        e.preventDefault();
-        e.stopPropagation();
-        var fieldIsValid_b,
-            fields_o = {
-                'body': null,
-                'category': null,
-                'county': null,
-                'email': null,
-                'header': null,
-                'phone': null,
-                'price': null,
-                'type': null
-            },
-            field_s,
-            formIsValid_b = true;
-        for(field_s in fields_o) {
-            if(fields_o.hasOwnProperty(field_s)) {
-                fields_o[field_s] = document.getElementById(field_s);
-                fieldIsValid_b = validateField(fields_o[field_s]);
-                if(fieldIsValid_b) {
-                    fields_o[field_s] = fields_o[field_s].value || $('input[name="type"]:checked').val();   
-                } else {
-                    formIsValid_b = false;
-                }
-            }
-        }
-        console.dir(fields_o);
-        if(!formIsValid_b) {
-            return;
-        }
-        return
-        $('#loader, #block').show();
-        $.ajax({
-            type: 'POST',
-            url: './backend/api/add/index.php',
-            data: JSON.stringify(fields_o),
-            contentType: 'text/plain',
-            success: function (response_o) {
-                var formData_o = new FormData();
-                var imageToUpload_o = document.getElementById('image').files[0];
-                // If the user has added an image, upload it
-                if(imageToUpload_o) {
-                    formData_o.set('image', imageToUpload_o);
-                    $.ajax({
-                        url: './backend/api/add-image/index.php',
-                        type: 'POST',
-                        data: formData_o,
-                        async: true,
-                        cache: false,
-                        contentType: false,
-                        enctype: 'multipart/form-data',
-                        processData: false,
-                        success: function (response) {
-                            console.dir(response);
-                            $("#loader").hide();
-                            $("#block").hide();
-                        }
-                    });
-                } else {
-                    $("#loader").hide();
-                    $("#block").hide();
-                }
-                
-                console.dir(response_o);
-                // if (response_o.status === "error") {
-                //     for (var key in response_o.description) {
-                //         if (response_o.description.hasOwnProperty(key)) {
-                //             if (response_o.description[key] === false) {
-                //                 $("#" + key).addClass("border-danger");
-                //             }
-                //         }
-                //     }
-                // } else {
-                //     // $('#post-new-ad-form').addClass('collapse');
-                //     // $('#submit-ad').addClass('collapse');
-                //     // $('#success-text').removeClass('collapse');
-                //     $("#post-new-ad-form").hide();
-                //     $("#submit-ad").hide();
-                //     $("#success-text").show();
-                //     //$("#post-new-ad-modal").modal("hide");
-                // }
-            },
-            failure: function (errMsg) {
-                alert(errMsg);
-            }
-        });
-    }
 
     // Helper functions
     function setInvalid(field_s) {

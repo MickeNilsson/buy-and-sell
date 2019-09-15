@@ -39,6 +39,15 @@ $counties_a = $db_o->fetchCounties();
             display: inline-block;
             padding: 4px;
         }
+        input[type="file"] {
+            display: none;
+        }
+        .custom-file-upload {
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -272,11 +281,12 @@ $counties_a = $db_o->fetchCounties();
                             <input type="tel" class="form-control" id="phone" placeholder="Telefon" />
                         </div>
                         <div class="form-group">
-                            <label for="image">Bild</label>
-                            <input type="file" class="form-control-file" id="image" />
+                            <label for="image-upload" class="btn btn-success">Ladda upp bild</label>
+                            <input type="file" class="form-control-file" id="image-upload" />
+                            <span id="filename"></span>
                         </div>
                         <div class="modal-footer">
-                            <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Stäng" />
+                            <input type="button" class="btn btn-secondare" data-dismiss="modal" value="Stäng" />
                             <input id="post-new-ad-button" type="submit" class="btn btn-primary" value="Skicka" />
                         </div>
                     </form>
