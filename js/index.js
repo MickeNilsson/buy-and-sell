@@ -1,7 +1,8 @@
 $(document).ready(function() {
     'use strict';
 
-    var invalidFields_o = {};
+    var invalidFields_o = {},
+        invalidFile_b = true;
 
     // Event listeners //////////////////////////////
 
@@ -20,12 +21,15 @@ $(document).ready(function() {
         console.dir(file_o);
         if(file_o.type !== 'image/jpeg' && file_o.type !== 'image/png') {
             $('#filename').text('Filen måste vara av typen jpg eller png');
+            invalidFile_b = true;
             return;
         }
         if(file_o.size > 10000000) {
             $('#filename').text('Filen måste vara mindre än 10MB stor');
+            invalidFile_b = true;
             return;
         }
+        invalidFile_b = false;
         $('#filename').text(file_o.name);
     }
 
@@ -61,6 +65,35 @@ $(document).ready(function() {
         // if(!formIsValid_b) {
         //     return;
         // }
+        if(!invalidFile_b) {
+            var formData_o = new FormData();
+            var imageToUpload_o = document.getElementById('image-upload').files[0];
+            // If the user has added an image, upload it
+            if(imageToUpload_o) {
+                formData_o.set('image', imageToUpload_o);
+                $.ajax({
+                    url: './api/upload-image/index.php',
+                    type: 'POST',
+                    data: formData_o,
+                    async: true,
+                    cache: false,
+                    contentType: false,
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    success: function (response) {
+                        console.dir(response);
+                        $("#loader").hide();
+                        $("#block").hide();
+                    }
+                });
+            } else {
+                $("#loader").hide();
+                $("#block").hide();
+            }
+        }
+        
+        return;
+        console.dir(response_o);
         $('#loader, #block').show();
         $.ajax({
             type: 'POST',
