@@ -9,7 +9,7 @@ require_once '../settings.php';
 require_once '../classes/db.php';
 //require_once '../../classes/validate.php';
 
-$validate_o = new Validate();
+//$validate_o = new Validate();
 $db_o = new DB($settings_a);
 
 $newAd_aa = json_decode(file_get_contents('php://input'), true);
