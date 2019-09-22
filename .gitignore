@@ -1,3 +1,4 @@
 node_modules
 backend/settings.php
 dist
+api/settings.php
