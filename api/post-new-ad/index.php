@@ -13,6 +13,7 @@ $validate_o = new Validate();
 $db_o = new DB($settings_a);
 
 $newAd_aa = json_decode(file_get_contents('php://input'), true);
+echo json_encode($newAd_aa, JSON_UNESCAPED_UNICODE);exit;
 // print_r($newAd_aa);exit;
 $id_i = $db_o->postNewAd($newAd_aa);
 $response_o = new stdClass();

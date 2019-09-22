@@ -62,9 +62,25 @@ $(document).ready(function() {
             }
         }
         console.dir(fields_o);
-        // if(!formIsValid_b) {
-        //     return;
-        // }
+        if(!formIsValid_b) {
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: "http://www.digizone.se/buy-and-sell/api/post-new-ad/",
+            data: fields_o,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response_o) {
+                $("#loader").hide();
+                $("#block").hide();
+                console.dir(response_o);
+            },
+            failure: function (errMsg) {
+                alert(errMsg);
+            }
+        });
+        return;
         if(!invalidFile_b) {
             var formData_o = new FormData();
             var imageToUpload_o = document.getElementById('image-upload').files[0];
