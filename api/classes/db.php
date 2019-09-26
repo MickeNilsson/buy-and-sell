@@ -22,16 +22,16 @@ class DB {
     /**
      * Adds a new row in the ads table
      * 
-     * @param array $params_aa
+     * @param array $params_o
      * 
      * @return boolean Was the SQL insert successful?
      * 
      */
-    public function add($params_aa) {
+    public function add($params_o) {
         $sql_s = "INSERT INTO ads(type, category, county, header, body, price, email) "
                . "VALUES (:type, :category, :county, :header, :body, :price, :email)";
         $stmt_o = $this->pdo_o->prepare($sql_s);
-        $stmt_o->execute($params_aa);
+        $stmt_o->execute($params_o);
         return $this->pdo_o->lastInsertId();
     }
 

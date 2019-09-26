@@ -65,12 +65,31 @@ $(document).ready(function() {
         if(!formIsValid_b) {
             return;
         }
+        var formData_o = new FormData();
+        formData_o.set('body', fields_o.body);
+        formData_o.set('category', fields_o.category);
+        formData_o.set('county', fields_o.county);
+        formData_o.set('email', fields_o.email);
+        formData_o.set('header', fields_o.header);
+        formData_o.set('phone', fields_o.phone);
+        formData_o.set('price', fields_o.price);
+        formData_o.set('type', fields_o.type);
+        var imageUpload_o = document.getElementById('image-upload');
+        if(imageToUpload_o) {
+            var image_o = imageUpload_o.files[0];
+            if(image_o) {
+                formData_o.set('image', image_o);
+            }
+        }
         $.ajax({
-            type: "POST",
-            url: "http://www.digizone.se/buy-and-sell/api/post-new-ad/",
-            data: fields_o,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
+            type: 'POST',
+            url: 'http://www.digizone.se/buy-and-sell/api/post-new-ad/',
+            data: formData_o,
+            enctype: 'multipart/form-data',
+            contentType: false,
+            cache: false,
+            async: true,
+            processData: false,
             success: function (response_o) {
                 $("#loader").hide();
                 $("#block").hide();
