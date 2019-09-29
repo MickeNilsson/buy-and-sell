@@ -11,7 +11,7 @@
              
                   <input id="file" name="file" type="file" />
                   <input id="send-btn" type="button" value="send" />
-             <input type="text" value="some text" />
+             <input id="text" type="text" value="some text" />
                     <input type="submit" value="submit"/> 
                
 
@@ -24,6 +24,7 @@
                 debugger;
                 if(imageToUpload_o) {
                     formData_o.set('image', imageToUpload_o);
+                    formData_o.set('text', 'some text');
                     $.ajax({
                         url: 'fileupload-test.php',
                         type: 'POST',
@@ -51,6 +52,7 @@
                
                var formData = new FormData();
                formData.set("image", document.getElementById('file').files[0]);
+               formData_o.set('text', 'some text');
                $.ajax({
                  url: 'fileupload-test.php',
                  type: 'POST',

@@ -15,7 +15,7 @@ $(document).ready(function() {
     
     // Event handlers ///////////////////////////////
 
-    function prepareFileUpload(e) {
+    function prepareFileUpload() {
         
         var file_o = document.getElementById('image-upload').files[0];
         console.dir(file_o);
@@ -62,9 +62,9 @@ $(document).ready(function() {
             }
         }
         console.dir(fields_o);
-        if(!formIsValid_b) {
-            return;
-        }
+        // if(!formIsValid_b) {
+        //     return;
+        // }
         var formData_o = new FormData();
         formData_o.set('body', fields_o.body);
         formData_o.set('category', fields_o.category);
@@ -74,119 +74,29 @@ $(document).ready(function() {
         formData_o.set('phone', fields_o.phone);
         formData_o.set('price', fields_o.price);
         formData_o.set('type', fields_o.type);
-        var imageUpload_o = document.getElementById('image-upload');
-        if(imageToUpload_o) {
-            var image_o = imageUpload_o.files[0];
-            if(image_o) {
-                formData_o.set('image', image_o);
-            }
-        }
+        formData_o.set('image', document.getElementById('image-upload').files[0]);
         $.ajax({
+            url: 'api/post-new-ad/',
             type: 'POST',
-            url: 'http://www.digizone.se/buy-and-sell/api/post-new-ad/',
-            data: formData_o,
             enctype: 'multipart/form-data',
-            contentType: false,
-            cache: false,
+            data: formData_o,
             async: true,
+            cache: false,
+            contentType: false,
             processData: false,
-            success: function (response_o) {
-                $("#loader").hide();
-                $("#block").hide();
-                console.dir(response_o);
+            success: function (response) {
+                alert(response);
             },
-            failure: function (errMsg) {
-                alert(errMsg);
-            }
-        });
-        return;
-        if(!invalidFile_b) {
-            var formData_o = new FormData();
-            var imageToUpload_o = document.getElementById('image-upload').files[0];
-            // If the user has added an image, upload it
-            if(imageToUpload_o) {
-                formData_o.set('image', imageToUpload_o);
-                $.ajax({
-                    url: './api/upload-image/index.php',
-                    type: 'POST',
-                    data: formData_o,
-                    async: true,
-                    cache: false,
-                    contentType: false,
-                    enctype: 'multipart/form-data',
-                    processData: false,
-                    success: function (response) {
-                        console.dir(response);
-                        $("#loader").hide();
-                        $("#block").hide();
-                    }
-                });
-            } else {
-                $("#loader").hide();
-                $("#block").hide();
-            }
-        }
-        
-        return;
-        console.dir(response_o);
-        $('#loader, #block').show();
-        $.ajax({
-            type: 'POST',
-            url: './backend/api/add/index.php',
-            data: JSON.stringify(fields_o),
-            contentType: 'text/plain',
-            success: function (response_o) {
-                var formData_o = new FormData();
-                var imageToUpload_o = document.getElementById('image-upload').files[0];
-                // If the user has added an image, upload it
-                if(imageToUpload_o) {
-                    formData_o.set('image', imageToUpload_o);
-                    $.ajax({
-                        url: './api/upload-image/index.php',
-                        type: 'POST',
-                        data: formData_o,
-                        async: true,
-                        cache: false,
-                        contentType: false,
-                        enctype: 'multipart/form-data',
-                        processData: false,
-                        success: function (response) {
-                            console.dir(response);
-                            $("#loader").hide();
-                            $("#block").hide();
-                        }
-                    });
-                } else {
-                    $("#loader").hide();
-                    $("#block").hide();
-                }
-                
-                console.dir(response_o);
-                // if (response_o.status === "error") {
-                //     for (var key in response_o.description) {
-                //         if (response_o.description.hasOwnProperty(key)) {
-                //             if (response_o.description[key] === false) {
-                //                 $("#" + key).addClass("border-danger");
-                //             }
-                //         }
-                //     }
-                // } else {
-                //     // $('#post-new-ad-form').addClass('collapse');
-                //     // $('#submit-ad').addClass('collapse');
-                //     // $('#success-text').removeClass('collapse');
-                //     $("#post-new-ad-form").hide();
-                //     $("#submit-ad").hide();
-                //     $("#success-text").show();
-                //     //$("#post-new-ad-modal").modal("hide");
-                // }
-            },
-            failure: function (errMsg) {
-                alert(errMsg);
+            failure: function(response) {
+
             }
         });
     }
 
+    // Helper functions ///////////////////////////////
+
     function validateField(e) {
+
         var field_o = e.target || e;
         var valid_b = true;
         switch(field_o.id) {
@@ -198,7 +108,7 @@ $(document).ready(function() {
                 }
                 break;
             case 'header':
-                if(field_o.value.length > 50) {
+                if(field_o.value.length > 100) {
                     field_o.value = field_o.value.substr(0, 50);
                 } else if(field_o.value.length === 0) {
                     valid_b = false;
@@ -243,16 +153,15 @@ $(document).ready(function() {
         }
         return valid_b;
     }
-        
-
-
-    // Helper functions
+    
     function setInvalid(field_s) {
+
         $('#' + field_s).addClass('invalid');
         invalidFields_o[field_s] = true;
     }
 
     function setValid(field_s) {
+        
         $('#' + field_s).removeClass('invalid');
         delete invalidFields_o[field_s];
     }

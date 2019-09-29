@@ -22,17 +22,22 @@ class DB {
     /**
      * Adds a new row in the ads table
      * 
-     * @param array $params_o
+     * @param array $params_aa
      * 
-     * @return boolean Was the SQL insert successful?
+     * @return array $params_aa
      * 
      */
-    public function add($params_o) {
-        $sql_s = "INSERT INTO ads(type, category, county, header, body, price, email) "
+    public function add($params_aa) {
+
+        $params_aa = $this->validate($params_aa);
+        if(!$params_aa['hasValidationError']) {
+            $sql_s = "INSERT INTO ads(type, category, county, header, body, price, email) "
                . "VALUES (:type, :category, :county, :header, :body, :price, :email)";
-        $stmt_o = $this->pdo_o->prepare($sql_s);
-        $stmt_o->execute($params_o);
-        return $this->pdo_o->lastInsertId();
+            $stmt_o = $this->pdo_o->prepare($sql_s);
+            $stmt_o->execute($params_aa);
+            $params_aa['lastInsertId'] = $this->pdo_o->lastInsertId();
+        }
+        return $params_aa;
     }
 
     /**
@@ -41,6 +46,7 @@ class DB {
      * @return array 
      */
     public function fetchCategories() {
+
         $sql_s = "SELECT * FROM category";
         $stmt_o = $this->pdo_o->prepare($sql_s);
         $stmt_o->execute();
@@ -57,6 +63,7 @@ class DB {
      * @return array 
      */
     public function fetchCounties() {
+
         $sql_s = "SELECT * FROM county";
         $stmt_o = $this->pdo_o->prepare($sql_s);
         $stmt_o->execute();
@@ -66,6 +73,82 @@ class DB {
         }
         return $queryResult_ao;
     }
+
+    /**
+     * Validate all parameters
+     * 
+     * @param array $params_aa
+     * 
+     * @return array
+     */
+    private function validate($params_aa) {
+
+        $params_aa['hasValidationError'] = false;
+        foreach($params_aa as $key_s => $value_s) {
+            switch($key_s) {
+                case 'body':
+                    if(strlen($value_s) > 400) {
+                        $params_aa['hasValidationError'] = true;
+                        $params_aa[$key_s] = false;
+                    }
+                    break;
+                case 'header':
+                    if(strlen($value_s) > 100) {
+                        $params_aa['hasValidationError'] = true;
+                        $params_aa[$key_s] = false;
+                    }
+                    break;
+                case 'price':
+                    if(strlen($value_s) <= 10 && is_numeric($value_s)) {
+                        $params_aa[$key] = (int)$value_s;
+                    } else {
+                        $params_aa['hasValidationError'] = true;
+                        $params_aa[$key_s] = false;
+                    }
+                    break;
+                case 'category':
+                    $value_i = (int)$value_s;
+                    if($value_i >= 1 && $value_i <= 33) {
+                        $params_aa[$key] = $value_i;
+                    } else {
+                        $params_aa['hasValidationError'] = true;
+                        $params_aa[$key_s] = false;
+                    }
+                    break;
+                case 'county':
+                    $value_i = (int)$value_s;
+                    if($value_i >= 1 && $value_i <= 23) {
+                        $params_aa[$key] = $value_i;
+                    } else {
+                        $params_aa['hasValidationError'] = true;
+                        $params_aa[$key_s] = false;
+                    }
+                    break;
+                case 'email':
+                    if(strlen($value_s) > 50 || !filter_var($value_s, FILTER_VALIDATE_EMAIL)) {
+                        $params_aa['hasValidationError'] = true;
+                        $params_aa[$key_s] = false;
+                    }
+                    break;
+                case 'phone':
+                    if(strlen($value_s) > 20) {
+                        $params_aa['hasValidationError'] = true;
+                        $params_aa[$key_s] = false;
+                    }
+                    break;
+                case 'type':
+                    $value_i = (int)$value_s;
+                    if($value_i < 1 || $value_i > 3) {
+                        $params_aa['hasValidationError'] = true;
+                        $params_aa[$key_s] = false;
+                    }
+            }
+        }
+        return $params_aa;
+    }
+
+
+
 
     public function search($params_o) {
         $sql_s = "SELECT id, type, category, county, header, price FROM ads WHERE";

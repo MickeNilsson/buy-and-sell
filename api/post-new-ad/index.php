@@ -3,19 +3,20 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST');
-header('Access-Control-Allow-Headers: Content-Type');
-header('Content-Type: application/json; charset=utf-8');
+//header('Access-Control-Allow-Methods: GET, POST');
+//header('Access-Control-Allow-Headers: Content-Type');
+//header('Content-Type: application/json; charset=utf-8');
 
 require_once '../settings.php';
 require_once '../classes/db.php';
 
-print_r($_POST);exit;
+//print_r($_POST);print_r($_FILES['image']);exit;
 
 $db_o = new DB($settings_a);
-$newAd_aa = json_decode(file_get_contents('php://input'), true);
-$db_o->add($newAd_aa);
+$params_aa = $db_o->add($_POST);
+echo json_encode($params_aa, JSON_UNESCAPED_UNICODE);
 
+exit;
 
 
 
