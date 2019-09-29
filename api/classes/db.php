@@ -100,7 +100,7 @@ class DB {
                     break;
                 case 'price':
                     if(strlen($value_s) <= 10 && is_numeric($value_s)) {
-                        $params_aa[$key] = (int)$value_s;
+                        $params_aa[$key_s] = (int)$value_s;
                     } else {
                         $params_aa['hasValidationError'] = true;
                         $params_aa[$key_s] = false;
@@ -109,7 +109,7 @@ class DB {
                 case 'category':
                     $value_i = (int)$value_s;
                     if($value_i >= 1 && $value_i <= 33) {
-                        $params_aa[$key] = $value_i;
+                        $params_aa[$key_s] = $value_i;
                     } else {
                         $params_aa['hasValidationError'] = true;
                         $params_aa[$key_s] = false;
@@ -118,7 +118,7 @@ class DB {
                 case 'county':
                     $value_i = (int)$value_s;
                     if($value_i >= 1 && $value_i <= 23) {
-                        $params_aa[$key] = $value_i;
+                        $params_aa[$key_s] = $value_i;
                     } else {
                         $params_aa['hasValidationError'] = true;
                         $params_aa[$key_s] = false;
