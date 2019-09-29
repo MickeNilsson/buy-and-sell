@@ -31,6 +31,7 @@ class DB {
 
         $params_aa = $this->validate($params_aa);
         if(!$params_aa['hasValidationError']) {
+            unset($params_aa['hasValidationError']);
             $sql_s = "INSERT INTO ads(type, category, county, header, body, price, email) "
                . "VALUES (:type, :category, :county, :header, :body, :price, :email)";
             $stmt_o = $this->pdo_o->prepare($sql_s);
