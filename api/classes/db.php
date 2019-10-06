@@ -29,14 +29,24 @@ class DB {
      */
     public function add($params_aa) {
 
-        $params_aa = $this->validate($params_aa);
-        if(!$params_aa['hasValidationError']) {
-            unset($params_aa['hasValidationError']);
+        $errors_aa = $this->validate($params_aa);
+        if(!empty($errors_aa)) {
+            $errors_aa['status'] = 'error';
+            return $errors_aa;
+        }
+        try {
             $sql_s = "INSERT INTO ads(type, category, county, header, body, price, email) "
-               . "VALUES (:type, :category, :county, :header, :body, :price, :email)";
+            . "VALUES (:type, :category, :county, :header, :body, :price, :email)";
             $stmt_o = $this->pdo_o->prepare($sql_s);
             $stmt_o->execute($params_aa);
+            $response_aa['status'] = 'success';
             $params_aa['lastInsertId'] = $this->pdo_o->lastInsertId();
+        } catch(Exception $e)
+            $error_aa = array(
+                'status' => 'error',
+                'message' => $e->getMessage();
+            );
+            return $error_aa;
         }
         return $params_aa;
     }
@@ -84,74 +94,57 @@ class DB {
      */
     private function validate($params_aa) {
 
-        $params_aa['hasValidationError'] = false;
+        $errors_aa = array();
         foreach($params_aa as $key_s => $value_s) {
             switch($key_s) {
                 case 'body':
-                    if(strlen($value_s) > 400) {
-                        $params_aa['hasValidationError'] = true;
-                        $params_aa[$key_s] = false;
+                    $numOfChars_i = strlen($value_s);
+                    if($numOfChars_i < 1 || $numOfChars_i > 400) {
+                        $errors_aa['body'] = true;
                     }
                     break;
                 case 'header':
-                    if(strlen($value_s) > 100) {
-                        $params_aa['hasValidationError'] = true;
-                        $params_aa[$key_s] = false;
+                    $numOfChars_i = strlen($value_s);
+                    if($numOfChars_i < 1 || $numOfChars_i > 100) {
+                        $errors_aa['header'] = true;
                     }
                     break;
                 case 'price':
-                    if(strlen($value_s) <= 10 && is_numeric($value_s)) {
-                        $params_aa[$key_s] = (int)$value_s;
-                    } else {
-                        $params_aa['hasValidationError'] = true;
-                        $params_aa[$key_s] = false;
+                    if(!is_numeric($value_s) || strlen($value_s) > 10) {
+                        $errors_aa['price'] = true;
                     }
                     break;
                 case 'category':
-                    $value_i = (int)$value_s;
-                    if($value_i >= 1 && $value_i <= 33) {
-                        $params_aa[$key_s] = $value_i;
-                    } else {
-                        $params_aa['hasValidationError'] = true;
-                        $params_aa[$key_s] = false;
+                    if(!is_numeric($value_s) || $value_s < 1 || $value_s > 33) {
+                        $errors_aa['category'] = true;
                     }
                     break;
                 case 'county':
-                    $value_i = (int)$value_s;
-                    if($value_i >= 1 && $value_i <= 23) {
-                        $params_aa[$key_s] = $value_i;
-                    } else {
-                        $params_aa['hasValidationError'] = true;
-                        $params_aa[$key_s] = false;
+                    if(!is_numeric($value_s) || $value_s < 1 || $value_s > 23) {
+                        $errors_aa['county'] = true;
                     }
                     break;
                 case 'email':
                     if(strlen($value_s) > 50 || !filter_var($value_s, FILTER_VALIDATE_EMAIL)) {
-                        $params_aa['hasValidationError'] = true;
-                        $params_aa[$key_s] = false;
+                        $errors_aa['email'] = true;
                     }
                     break;
                 case 'phone':
                     if(strlen($value_s) > 20) {
-                        $params_aa['hasValidationError'] = true;
-                        $params_aa[$key_s] = false;
+                        $errors_aa['phone'] = true;
                     }
                     break;
                 case 'type':
-                    $value_i = (int)$value_s;
-                    if($value_i < 1 || $value_i > 3) {
-                        $params_aa['hasValidationError'] = true;
-                        $params_aa[$key_s] = false;
+                    if($value_s < 1 || $value_s > 3) {
+                        $errors_aa['type'] = true;
                     }
             }
         }
-        return $params_aa;
+        return $errors_aa;
     }
 
-
-
-
     public function search($params_o) {
+
         $sql_s = "SELECT id, type, category, county, header, price FROM ads WHERE";
         $and_s = "";
         $placeholders_a = [];
@@ -197,6 +190,7 @@ class DB {
     }
 
     private function array_push_assoc(&$array, $key, $value) {
+        
         $array[$key] = $value;
         return $array;
     }

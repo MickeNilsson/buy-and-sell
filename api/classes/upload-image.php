@@ -7,8 +7,11 @@
  * 
  * @return boolean true if it uploaded correctly, otherwise false
  */
-function uploadImage($file_a) {
-    $fileName_s = $file_a['name'];
+function uploadImage($file_a, $id_i) {
+    
+    
+    $fileExtension_s = substr($file_a['name'], strrpos($file_a['name'], '.'));
+    $fileName_s = $id_i . $fileExtension_s;
     $fileTmpName_s = $file_a['tmp_name'];
     $uploadStatus_i = $file_a['error'];
     $fileSize_i = $file_a['size'];
