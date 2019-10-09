@@ -219,17 +219,17 @@ $counties_a = $db_o->fetchCounties();
                         <div id="type" class="form-group">
                             <!-- Säljes - Radioknapp -->
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" id="sell" value="0" />
+                                <input class="form-check-input" type="radio" name="type" id="sell" value="1" />
                                 <label class="form-check-label" for="sell-radio">Säljes</label>
                             </div>
                             <!-- Köpes - Radioknapp -->
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" id="buy" value="1" />
+                                <input class="form-check-input" type="radio" name="type" id="buy" value="2" />
                                 <label class="form-check-label" for="buy">Köpes</label>
                             </div>
                             <!-- Uthyres - Radioknapp -->
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" id="rent-out" value="2" />
+                                <input class="form-check-input" type="radio" name="type" id="rent-out" value="3" />
                                 <label class="form-check-label" for="rent-out">Uthyres</label>
                             </div>
                         </div>
