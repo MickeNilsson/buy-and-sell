@@ -62,9 +62,9 @@ $(document).ready(function() {
             }
         }
         console.dir(fields_o);
-        // if(!formIsValid_b) {
-        //     return;
-        // }
+        if(!formIsValid_b) {
+            return;
+        }
         var formData_o = new FormData();
         formData_o.set('body', fields_o.body);
         formData_o.set('category', fields_o.category);
