@@ -41,11 +41,11 @@ class DB {
             $stmt_o->execute($params_aa);
             $response_aa['status'] = 'success';
             $params_aa['lastInsertId'] = $this->pdo_o->lastInsertId();
-        } catch(Exception $e)
-            $error_aa = array(
-                'status' => 'error',
+        } catch(Exception $e) {
+            $error_aa = [
+                'status'  => 'error',
                 'message' => $e->getMessage();
-            );
+            ];
             return $error_aa;
         }
         return $params_aa;
@@ -190,7 +190,7 @@ class DB {
     }
 
     private function array_push_assoc(&$array, $key, $value) {
-        
+
         $array[$key] = $value;
         return $array;
     }

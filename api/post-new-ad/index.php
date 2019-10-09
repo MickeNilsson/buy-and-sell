@@ -26,7 +26,6 @@ $result_aa = $db_o->add($args_aa);
 if($result_aa['status'] === 'success' && !empty($_FILES['image'])) {
     $result_b = uploadImage($_FILES['image'], $result_aa['lastInsertId']);
     $result_aa['fileUpload'] = $result_b;
-    
 }
 echo json_encode($result_aa, JSON_UNESCAPED_UNICODE);
 exit;
