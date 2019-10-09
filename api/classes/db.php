@@ -44,7 +44,7 @@ class DB {
         } catch(Exception $e) {
             $error_aa = [
                 'status'  => 'error',
-                'message' => $e->getMessage();
+                'message' => $e->getMessage()
             ];
             return $error_aa;
         }
