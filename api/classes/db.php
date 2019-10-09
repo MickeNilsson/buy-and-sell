@@ -39,8 +39,6 @@ class DB {
             . "VALUES (:type, :category, :county, :header, :body, :price, :email)";
             $stmt_o = $this->pdo_o->prepare($sql_s);
             $stmt_o->execute($params_aa);
-            $response_aa['status'] = 'success';
-            $params_aa['lastInsertId'] = $this->pdo_o->lastInsertId();
         } catch(Exception $e) {
             $error_aa = [
                 'status'  => 'error',
@@ -48,7 +46,11 @@ class DB {
             ];
             return $error_aa;
         }
-        return $params_aa;
+        $response_aa = [
+            'status'       => 'success',
+            'lastInsertId' => $this->pdo_o->lastInsertId();
+        ]
+        return $response_aa;
     }
 
     /**
