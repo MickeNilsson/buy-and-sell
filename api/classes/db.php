@@ -48,7 +48,7 @@ class DB {
         }
         $response_aa = [
             'status'       => 'success',
-            'lastInsertId' => $this->pdo_o->lastInsertId();
+            'lastInsertId' => $this->pdo_o->lastInsertId()
         ]
         return $response_aa;
     }
