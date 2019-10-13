@@ -49,6 +49,9 @@ $(document).ready(function() {
         $("#phone")
             .val("")
             .removeClass("border-danger");
+        $('#filename').text('');
+        document.getElementById('image-upload').files[0] = null;
+
     }
 
     function validateFileUpload() {
