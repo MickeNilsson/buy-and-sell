@@ -9,13 +9,49 @@ $(document).ready(function() {
     $('#post-new-ad-form')
         .on('change keyup', validateField)
         .on('submit', postNewAd);
+
+    $("#post-new-ad-modal")
+        .on('show.bs.modal', resetForm);
     
     $('#image-upload')
-        .on('change', prepareFileUpload);
+        .on('change', validateFileUpload);
     
     // Event handlers ///////////////////////////////
 
-    function prepareFileUpload() {
+    function resetForm() {
+
+        $("#success-text").hide();
+        $("#post-new-ad-form").show();
+        $("#submit-ad").show();
+        $("#sell")
+            .prop("checked", true)
+            .removeClass("border-danger");
+        $('#type')
+            .removeClass('border-dagner');
+        $("#category")
+            .prop("selectedIndex", 0)
+            .removeClass("border-danger");
+        $("#county")
+            .prop("selectedIndex", 0)
+            .removeClass("border-danger");
+        $("#header")
+            .val("")
+            .removeClass("border-danger");
+        $("#body")
+            .val("")
+            .removeClass("border-danger");
+        $("#price")
+            .val("")
+            .removeClass("border-danger");
+        $("#email")
+            .val("")
+            .removeClass("border-danger");
+        $("#phone")
+            .val("")
+            .removeClass("border-danger");
+    }
+
+    function validateFileUpload() {
         
         var file_o = document.getElementById('image-upload').files[0];
         console.dir(file_o);
@@ -85,7 +121,8 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             success: function (response) {
-                alert(response);
+                $('#post-new-ad-form').hide();
+                $('#success-text').show();
             },
             failure: function(response) {
 
@@ -156,13 +193,13 @@ $(document).ready(function() {
     
     function setInvalid(field_s) {
 
-        $('#' + field_s).addClass('invalid');
+        $('#' + field_s).addClass('border-danger');
         invalidFields_o[field_s] = true;
     }
 
     function setValid(field_s) {
         
-        $('#' + field_s).removeClass('invalid');
+        $('#' + field_s).removeClass('border-danger');
         delete invalidFields_o[field_s];
     }
 
@@ -245,9 +282,7 @@ $(document).ready(function() {
         //console.log($('#ad').val().length);
     });
 
-    $("#post-new-ad-modal").on("hidden.bs.modal", function () {
-        resetForm();
-    });
+    
 
     
 
@@ -295,33 +330,5 @@ $(document).ready(function() {
 
     
 
-    function resetForm() {
-        $("#success-text").hide();
-        $("#post-new-ad-form").show();
-        $("#submit-ad").show();
-        $("#sell")
-            .prop("checked", true)
-            .removeClass("border-danger");
-        $("#category")
-            .prop("selectedIndex", 0)
-            .removeClass("border-danger");
-        $("#county")
-            .prop("selectedIndex", 0)
-            .removeClass("border-danger");
-        $("#header")
-            .val("")
-            .removeClass("border-danger");
-        $("#body")
-            .val("")
-            .removeClass("border-danger");
-        $("#price")
-            .val("")
-            .removeClass("border-danger");
-        $("#email")
-            .val("")
-            .removeClass("border-danger");
-        $("#phone")
-            .val("")
-            .removeClass("border-danger");
-    }    
+       
 });
