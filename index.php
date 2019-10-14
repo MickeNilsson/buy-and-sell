@@ -48,6 +48,11 @@ $counties_a = $db_o->fetchCounties();
             padding: 6px 12px;
             cursor: pointer;
         }
+        .type-input-group {
+            border: 1px solid white;
+            border-radius: 4px;
+            padding: 5px
+        }
     </style>
 </head>
 
@@ -216,7 +221,7 @@ $counties_a = $db_o->fetchCounties();
                 <div class="modal-body">
                     <p class="collapse" id="success-text">Din annons har nu blivit publicerad.</p>
                     <form id="post-new-ad-form">
-                        <div id="type" class="form-group">
+                        <div id="type" class="form-group type-input-group">
                             <!-- Säljes - Radioknapp -->
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="type" id="sell" value="1" />
@@ -286,7 +291,7 @@ $counties_a = $db_o->fetchCounties();
                             <span id="filename"></span>
                         </div>
                         <div class="modal-footer">
-                            <input type="button" class="btn btn-secondare" data-dismiss="modal" value="Stäng" />
+                            <input id="close-new-ad-button" type="button" class="btn btn-secondare" data-dismiss="modal" value="Stäng" />
                             <input id="post-new-ad-button" type="submit" class="btn btn-primary" value="Skicka" />
                         </div>
                     </form>

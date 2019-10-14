@@ -20,38 +20,10 @@ $(document).ready(function() {
 
     function resetForm() {
 
-        $("#success-text").hide();
-        $("#post-new-ad-form").show();
-        $("#submit-ad").show();
-        $("#sell")
-            .prop("checked", true)
-            .removeClass("border-danger");
-        $('#type')
-            .removeClass('border-dagner');
-        $("#category")
-            .prop("selectedIndex", 0)
-            .removeClass("border-danger");
-        $("#county")
-            .prop("selectedIndex", 0)
-            .removeClass("border-danger");
-        $("#header")
-            .val("")
-            .removeClass("border-danger");
-        $("#body")
-            .val("")
-            .removeClass("border-danger");
-        $("#price")
-            .val("")
-            .removeClass("border-danger");
-        $("#email")
-            .val("")
-            .removeClass("border-danger");
-        $("#phone")
-            .val("")
-            .removeClass("border-danger");
+        document.getElementById('post-new-ad-form').reset();
+        var allFields_s = '#type, #category, #county, #header, #body, #price, #email, #phone';
+        $(allFields_s).removeClass('border-danger');
         $('#filename').text('');
-        document.getElementById('image-upload').files[0] = null;
-
     }
 
     function validateFileUpload() {
@@ -104,6 +76,8 @@ $(document).ready(function() {
         if(!formIsValid_b) {
             return;
         }
+        $('#post-new-ad-button').prop('disabled', true);
+        $('#close-new-ad-button').prop('disabled', true);
         var formData_o = new FormData();
         formData_o.set('body', fields_o.body);
         formData_o.set('category', fields_o.category);
@@ -124,6 +98,8 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             success: function (response) {
+
+                $('#post-new-ad-button').hide();
                 $('#post-new-ad-form').hide();
                 $('#success-text').show();
             },
