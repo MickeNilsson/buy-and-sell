@@ -99,9 +99,14 @@ $(document).ready(function() {
             processData: false,
             success: function (response) {
 
-                $('#post-new-ad-button').hide();
-                $('#post-new-ad-form').hide();
-                $('#success-text').show();
+                if(response.status === 'success') {
+                    $('#post-new-ad-button').hide();
+                    $('#post-new-ad-form').hide();
+                    $('#success-text').show();
+                } else {
+                    
+                }
+                
             },
             failure: function(response) {
 

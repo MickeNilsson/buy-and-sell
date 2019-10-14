@@ -31,8 +31,9 @@ class DB {
 
         $errors_aa = $this->validate($params_aa);
         if(!empty($errors_aa)) {
-            $errors_aa['status'] = 'error';
-            return $errors_aa;
+            $response_aa['status'] = 'error';
+            $response_aa['errors'] = $errors_aa;
+            return $response_aa;
         }
         try {
             $sql_s = "INSERT INTO ads(type, category, county, header, body, price, email) "
