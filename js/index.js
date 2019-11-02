@@ -102,6 +102,7 @@ $(document).ready(function() {
                 if(response.status === 'success') {
                     $('#post-new-ad-button').hide();
                     $('#post-new-ad-form').hide();
+                    $('#succes-text').html('Din annons har nu blivit publicerad. Du hittar den <a href="http://www.digizone.se/buy-and-sell/?id=' + response.id + '">här</a>.');
                     $('#success-text').show();
                 } else {
                     

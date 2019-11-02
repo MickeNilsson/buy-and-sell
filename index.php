@@ -219,7 +219,7 @@ $counties_a = $db_o->fetchCounties();
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p class="collapse" id="success-text">Din annons har nu blivit publicerad.</p>
+                    <div class="collapse" id="success-text"></div>
                     <form id="post-new-ad-form">
                         <div id="type" class="form-group type-input-group">
                             <!-- Säljes - Radioknapp -->
