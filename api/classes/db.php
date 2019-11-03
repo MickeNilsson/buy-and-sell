@@ -36,8 +36,8 @@ class DB {
             return $response_aa;
         }
         try {
-            $sql_s = "INSERT INTO ads(type, category, county, header, body, price, email) "
-            . "VALUES (:type, :category, :county, :header, :body, :price, :email)";
+            $sql_s = "INSERT INTO ads(type, category, county, header, body, price, email, image) "
+            . "VALUES (:type, :category, :county, :header, :body, :price, :email, :image)";
             $stmt_o = $this->pdo_o->prepare($sql_s);
             $stmt_o->execute($params_aa);
         } catch(Exception $e) {

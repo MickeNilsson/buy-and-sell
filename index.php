@@ -13,7 +13,6 @@ if(!empty($_GET['id'])) {
     if(is_numeric($_GET['id'])) {
         $ad_aa = $db_o->fetchAd($_GET['id']);
         print_r($ad_aa);
-        exit;
     }
 }
 

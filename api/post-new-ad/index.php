@@ -19,6 +19,7 @@ $args_aa = array(
     'county'   => empty($_POST['county']) ? '' : $_POST['county'],
     'email'    => empty($_POST['email']) ? '' : $_POST['email'],
     'header'   => empty($_POST['header']) ? '' : $_POST['header'],
+    'image'    => empty($_FILES['image']) ? 0 : 1;
     'price'    => empty($_POST['price']) ? '' : $_POST['price'],
     'type'     => empty($_POST['type']) ? '' : $_POST['type']
 );
