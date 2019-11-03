@@ -55,6 +55,35 @@ class DB {
     }
 
     /**
+     * Fetch a row from the ads table.
+     * 
+     * @param integer $id_i
+     * 
+     * @return array $params_aa
+     * 
+     */
+    public function fetchAd($id_i) {
+
+        try {
+            $sql_s = "SELECT * FROM ads WHERE ads.id = :id";
+            $stmt_o = $this->pdo_o->prepare($sql_s);
+            $stmt_o->execute(['id' => $id_i]);
+        } catch(Exception $e) {
+            $error_aa = [
+                'status'  => 'error',
+                'message' => $e->getMessage()
+            ];
+            return $error_aa;
+        }
+        return $stmt_o->fetch();
+        $response_aa = [
+            'status'       => 'success',
+            'id' => $this->pdo_o->lastInsertId()
+        ];
+        return $response_aa;
+    }
+
+    /**
      * Fetch all categories from the database table "category"
      * 
      * @return array 

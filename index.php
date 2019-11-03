@@ -1,11 +1,21 @@
 <?php
 
 require_once './backend/settings.php';
-require_once './backend/classes/db.php';
+require_once './api/classes/db.php';
 
 $db_o = new DB($settings_a);
 $categories_a = $db_o->fetchCategories();
 $counties_a = $db_o->fetchCounties();
+// If query parameter "id" is present in the URL together with a value,
+// fetch data about this ad from the database.
+$ad_aa;
+if(!empty($_GET['id'])) {
+    if(is_numeric($_GET['id'])) {
+        $ad_aa = $db_o->fetchAd($_GET['id']);
+        print_r($ad_aa);
+        exit;
+    }
+}
 
 ?>
 <!DOCTYPE html>
@@ -305,7 +315,9 @@ $counties_a = $db_o->fetchCounties();
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="item-modal-label">Super Nintendo</h5>
+                    <h5 class="modal-title" id="item-modal-header">
+                        <?= empty($ad_aa) ? '' : $ad_aa['header'] ?>
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -314,18 +326,16 @@ $counties_a = $db_o->fetchCounties();
                     <div class="card mb-3">
                         <img src="./images/snes.jpg" class="card-img-top" alt="..." />
                         <div class="card-body">
-                            <h5 class="card-title">Super Nintendo</h5>
-                            <p class="card-text">
-                                Jag säljer ett Super Nintendo i nyskick. Har bara spelat Super
-                                Mario World på den.
-                            </p>
-                            <p>
-                                Pris: 1000 kr
-                            </p>
-                            <p class="card-text">
+                            <div id="item-modal-body" class="card-text">
+                                <?= empty($ad_aa) ? '' : $ad_aa['body'] ?>
+                            </div>
+                            <div>
+                                Pris: <span id="item-modal-price"><?= empty($ad_aa) ? '' : $ad_aa['price'] ?></span> kr
+                            </div>
+                            <div class="card-text">
                                 <small class="text-muted">Publicerades 2019-01-12</small>
                                 <small class="text-muted">Östermalm, Stockholm</small>
-                            </p>
+                            </div>
                         </div>
                     </div>
                 </div>
