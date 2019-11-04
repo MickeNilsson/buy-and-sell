@@ -12,16 +12,22 @@ require_once '../settings.php';
 require_once '../classes/db.php';
 require_once '../classes/upload-image.php';
 
-$db_o = new DB($settings_aa);
+$db_o = new DB($settings_aa); 
+if(empty($_FILES['image'])) {
+    $fileExtension_s = 'no image';
+} else {
+    $fileExtension_s = substr($_FILES['image']['name'], strrpos($_FILES['image']['name'], '.') + 1);
+}
 $args_aa = array(
-    'body'     => empty($_POST['body']) ? '' : $_POST['body'],
-    'category' => empty($_POST['category']) ? '' : $_POST['category'],
-    'county'   => empty($_POST['county']) ? '' : $_POST['county'],
-    'email'    => empty($_POST['email']) ? '' : $_POST['email'],
-    'header'   => empty($_POST['header']) ? '' : $_POST['header'],
-    'image'    => empty($_FILES['image']) ? 0 : 1;
-    'price'    => empty($_POST['price']) ? '' : $_POST['price'],
-    'type'     => empty($_POST['type']) ? '' : $_POST['type']
+    'body'      => empty($_POST['body']) ? '' : $_POST['body'],
+    'category'  => empty($_POST['category']) ? '' : $_POST['category'],
+    'county'    => empty($_POST['county']) ? '' : $_POST['county'],
+    'email'     => empty($_POST['email']) ? '' : $_POST['email'],
+    'header'    => empty($_POST['header']) ? '' : $_POST['header'],
+    'image'     => $fileExtension_s,
+    'price'     => empty($_POST['price']) ? '' : $_POST['price'],
+    'published' => date('Y-m-d'),
+    'type'      => empty($_POST['type']) ? '' : $_POST['type']
 );
 $result_aa = $db_o->add($args_aa);
 if($result_aa['status'] === 'success' && !empty($_FILES['image'])) {

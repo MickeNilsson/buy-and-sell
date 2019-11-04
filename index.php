@@ -323,7 +323,10 @@ if(!empty($_GET['id'])) {
                 </div>
                 <div class="modal-body">
                     <div class="card mb-3">
-                        <img src="./images/snes.jpg" class="card-img-top" alt="..." />
+                        <img id="item-modal-image"
+                             src="<?= (empty($ad_aa) || $ad_aa['image'] === 'no image') ? '' : './uploads/' . $ad_aa['id'] . '.' . $ad_aa['image'] ?>"
+                             class="card-img-top" 
+                             alt="..." />
                         <div class="card-body">
                             <div id="item-modal-body" class="card-text">
                                 <?= empty($ad_aa) ? '' : $ad_aa['body'] ?>
