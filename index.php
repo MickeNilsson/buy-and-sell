@@ -6,6 +6,7 @@ require_once './api/classes/db.php';
 $db_o = new DB($settings_a);
 $categories_a = $db_o->fetchCategories();
 $counties_a = $db_o->fetchCounties();
+print_r($counties_a);
 // If query parameter "id" is present in the URL together with a value,
 // fetch data about this ad from the database.
 $ad_aa;
@@ -323,10 +324,13 @@ if(!empty($_GET['id'])) {
                 </div>
                 <div class="modal-body">
                     <div class="card mb-3">
-                        <img id="item-modal-image"
-                             src="<?= (empty($ad_aa) || $ad_aa['image'] === 'no image') ? '' : './uploads/' . $ad_aa['id'] . '.' . $ad_aa['image'] ?>"
-                             class="card-img-top" 
-                             alt="..." />
+                        <div id="item-modal-image">
+                            <?php if(!empty($ad_aa) && $ad_aa['image'] !== 'no image') { ?>
+                                <img src="<?= './uploads/' . $ad_aa['id'] . '.' . $ad_aa['image'] ?>"
+                                     class="card-img-top" 
+                                     alt="..." />
+                            <?php } ?>
+                        </div>
                         <div class="card-body">
                             <div id="item-modal-body" class="card-text">
                                 <?= empty($ad_aa) ? '' : $ad_aa['body'] ?>
@@ -335,8 +339,20 @@ if(!empty($_GET['id'])) {
                                 Pris: <span id="item-modal-price"><?= empty($ad_aa) ? '' : $ad_aa['price'] ?></span> kr
                             </div>
                             <div class="card-text">
-                                <small class="text-muted">Publicerades 2019-01-12</small>
-                                <small class="text-muted">Östermalm, Stockholm</small>
+                                <small class="text-muted">Publicerades <?= empty($ad_aa) ? '' : $ad_aa['published'] ?></small>
+                                <br />
+                                <small class="text-muted">
+                                    <?php 
+                                        if(!empty($ad_aa)) {
+                                            foreach($counties_a as $county_a) {
+                                                if($county_a['id'] == $ad_aa['county']) {
+                                                    echo $county_a['name'];
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    ?>
+                                </small>
                             </div>
                         </div>
                     </div>
