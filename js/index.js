@@ -15,6 +15,9 @@ $(document).ready(function() {
     
     $('#image-upload')
         .on('change', validateFileUpload);
+
+    $('#search-button')
+        .on('click', search);
     
     // Event handlers ///////////////////////////////
 
@@ -114,6 +117,34 @@ $(document).ready(function() {
             },
             failure: function(response) {
 
+            }
+        });
+    }
+
+    function search() {
+
+        var search_o = {
+                text: $('#search-text').val(),
+                category: $('#search-category-button').attr('data-category'),
+                county: $('#search-county-button').attr('data-county'),
+                type: $('#search-buy-or-sell-button').attr('data-buy-or-sell')
+            };
+        console.dir(search_o);
+        $('#loader').show();
+        $('#block').show();
+        $.ajax({
+            type: 'POST',
+            url: 'http://www.digizone.se/buy-and-sell/api/search/',
+            data: JSON.stringify(search_o),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (response_o) {
+                $('loader').hide();
+                $('#block').hide();
+                console.dir(response_o);
+            },
+            failure: function (errMsg) {
+                alert(errMsg);
             }
         });
     }
@@ -283,40 +314,5 @@ $(document).ready(function() {
             event_o.preventDefault();
             $("#search-button").click();
         }
-    });
-
-    $("#search-button").on("click", function (e) {
-        var text_s = $("#search-text").val();
-        var category_s = $("#search-category-button").attr("data-category");
-        var county_s = $("#search-county-button").attr("data-county");
-        var type_s = $("#search-buy-or-sell-button").attr("data-buy-or-sell");
-        var search_o = {
-            text: text_s,
-            category: category_s,
-            county: county_s,
-            type: type_s
-        };
-        console.dir(search_o);
-        $("#loader").show();
-        $("#block").show();
-        $.ajax({
-            type: "POST",
-            url: "http://www.digizone.se/buy-and-sell/backend/api/search/",
-            data: JSON.stringify(search_o),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response_o) {
-                $("#loader").hide();
-                $("#block").hide();
-                console.dir(response_o);
-            },
-            failure: function (errMsg) {
-                alert(errMsg);
-            }
-        });
-    });
-
-    
-
-       
+    });       
 });

@@ -6,14 +6,14 @@ require_once './api/classes/db.php';
 $db_o = new DB($settings_a);
 $categories_a = $db_o->fetchCategories();
 $counties_a = $db_o->fetchCounties();
-print_r($counties_a);
+//print_r($counties_a);
 // If query parameter "id" is present in the URL together with a value,
 // fetch data about this ad from the database.
 $ad_aa;
 if(!empty($_GET['id'])) {
     if(is_numeric($_GET['id'])) {
         $ad_aa = $db_o->fetchAd($_GET['id']);
-        print_r($ad_aa);
+        //print_r($ad_aa);
     }
 }
 
@@ -131,13 +131,13 @@ if(!empty($_GET['id'])) {
                         <button style="box-shadow: none;background: none;border: none;padding-left:0;"
                             class="btn btn-secondary dropdown-toggle" type="button" id="search-buy-or-sell-button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-buy-or-sell="0">
-                            Säljes
+                            Säljes, Köpes eller Uthyres
                         </button>
                         <div class="dropdown-menu scrollable-menu" aria-labelledby="search-buy-or-sell-button">
-                            <a class="dropdown-item" href="#" data-buy-or-sell="0">Säljes</a>
-                            <a class="dropdown-item" href="#" data-buy-or-sell="1">Köpes</a>
-                            <a class="dropdown-item" href="#" data-buy-or-sell="2">Uthyres</a>
-                            <a class="dropdown-item" href="#" data-buy-or-sell="3">Köpes, säljes och uthyres</a>
+                            <a class="dropdown-item" href="#" data-buy-or-sell="1">Säljes</a>
+                            <a class="dropdown-item" href="#" data-buy-or-sell="2">Köpes</a>
+                            <a class="dropdown-item" href="#" data-buy-or-sell="3">Uthyres</a>
+                            <a class="dropdown-item" href="#" data-buy-or-sell="0">Köpes, säljes eller uthyres</a>
                         </div>
                     </div>
                 </li>
