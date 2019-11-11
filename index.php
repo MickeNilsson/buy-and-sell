@@ -96,14 +96,14 @@ if(!empty($_GET['id'])) {
                     <div id="search-category" class="dropdown">
                         <button style="box-shadow: none;background: none;border: none;padding-left:0;"
                             class="btn btn-secondary dropdown-toggle" type="button" id="search-category-button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-category="0">
+                            data-toggle="dropdown" value="0" aria-haspopup="true" aria-expanded="false" data-category="0">
                             Alla kategorier
                         </button>
                         <div class="dropdown-menu scrollable-menu" aria-labelledby="search-category-button">
-                            <a class="dropdown-item" href="#" data-category="0">Alla kategorier</a>
+                            <a class="dropdown-item" href="#" value="0">Alla kategorier</a>
                             <?php
                                 foreach($categories_a as $category_a) {
-                                    echo '<a class="dropdown-item" href="#" data-category="' . $category_a['id'] . '">' . $category_a['name'] . '</a>';
+                                    echo '<a class="dropdown-item" href="#" value="' . $category_a['id'] . '">' . $category_a['name'] . '</a>';
                                 }
                             ?>
                         </div>
@@ -113,31 +113,31 @@ if(!empty($_GET['id'])) {
                     <div id="search-county" class="dropdown">
                         <button style="box-shadow: none;background: none;border: none;padding-left:0;"
                             class="btn btn-secondary dropdown-toggle" type="button" id="search-county-button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-county="0">
+                            data-toggle="dropdown" value="0" aria-haspopup="true" aria-expanded="false" data-county="0">
                             Hela Sverige
                         </button>
                         <div class="dropdown-menu scrollable-menu" aria-labelledby="search-county-button">
-                            <a class="dropdown-item" href="#" data-county="0">Hela Sverige</a>
+                            <a class="dropdown-item" href="#" value="0">Hela Sverige</a>
                             <?php
                                 foreach($counties_a as $county_a) {
-                                    echo '<a class="dropdown-item" href="#" data-county="' . $county_a['id'] . '">' . $county_a['name'] . '</a>';
+                                    echo '<a class="dropdown-item" href="#" value="' . $county_a['id'] . '">' . $county_a['name'] . '</a>';
                                 }
                             ?>
                         </div>
                     </div>
                 </li>
                 <li class="nav-item" style="background: none;">
-                    <div id="search-buy-or-sell" class="dropdown">
+                    <div id="search-type" class="dropdown">
                         <button style="box-shadow: none;background: none;border: none;padding-left:0;"
-                            class="btn btn-secondary dropdown-toggle" type="button" id="search-buy-or-sell-button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-buy-or-sell="0">
+                            class="btn btn-secondary dropdown-toggle" type="button" id="search-type-button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="0">
                             Säljes, Köpes eller Uthyres
                         </button>
-                        <div class="dropdown-menu scrollable-menu" aria-labelledby="search-buy-or-sell-button">
-                            <a class="dropdown-item" href="#" data-buy-or-sell="1">Säljes</a>
-                            <a class="dropdown-item" href="#" data-buy-or-sell="2">Köpes</a>
-                            <a class="dropdown-item" href="#" data-buy-or-sell="3">Uthyres</a>
-                            <a class="dropdown-item" href="#" data-buy-or-sell="0">Köpes, säljes eller uthyres</a>
+                        <div class="dropdown-menu scrollable-menu" aria-labelledby="search-type-button">
+                            <a class="dropdown-item" href="#" value="1">Säljes</a>
+                            <a class="dropdown-item" href="#" value="2">Köpes</a>
+                            <a class="dropdown-item" href="#" value="3">Uthyres</a>
+                            <a class="dropdown-item" href="#" value="0">Köpes, säljes eller uthyres</a>
                         </div>
                     </div>
                 </li>

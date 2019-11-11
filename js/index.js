@@ -19,6 +19,19 @@ $(document).ready(function() {
     $('#search-button')
         .on('click', search);
     
+    $('#search-type .dropdown-item,' +
+      '#search-category .dropdown-item,' +
+      '#search-county .dropdown-item')
+        .on('click', function() {setDropdownButton($(this))});
+
+    // $('#search-category .dropdown-item')
+    //     .on('click', function() {set('category')});
+
+    // $('#search-county .dropdown-item')
+    //     .on('click', function() {set('county')});
+    
+    
+    
     // Event handlers ///////////////////////////////
 
     function resetForm() {
@@ -27,6 +40,41 @@ $(document).ready(function() {
         var allFields_s = '#type, #category, #county, #header, #body, #price, #email, #phone';
         $(allFields_s).removeClass('border-danger');
         $('#filename').text('');
+    }
+
+    function search() {
+
+        var search_o = {
+                text:     $('#search-text').val(),
+                category: $('#search-category-button').attr('value'),
+                county:   $('#search-county-button').attr('value'),
+                type:     $('#search-type-button').attr('value')
+            };
+        console.dir(search_o);
+        $('#loader').show();
+        $('#block').show();
+        $.ajax({
+            type: 'POST',
+            url: 'http://www.digizone.se/buy-and-sell/api/search/',
+            data: JSON.stringify(search_o),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (response_o) {
+                $('#loader').hide();
+                $('#block').hide();
+                console.dir(response_o);
+            },
+            failure: function (errMsg) {
+                alert(errMsg);
+            }
+        });
+    }
+
+    function setDropdownButton(menuItem) {
+
+        menuItem.parent().prev()
+            .text(menuItem.text())
+            .attr('value', menuItem.attr('value'));
     }
 
     function validateFileUpload() {
@@ -121,33 +169,7 @@ $(document).ready(function() {
         });
     }
 
-    function search() {
-
-        var search_o = {
-                text: $('#search-text').val(),
-                category: $('#search-category-button').attr('data-category'),
-                county: $('#search-county-button').attr('data-county'),
-                type: $('#search-buy-or-sell-button').attr('data-buy-or-sell')
-            };
-        console.dir(search_o);
-        $('#loader').show();
-        $('#block').show();
-        $.ajax({
-            type: 'POST',
-            url: 'http://www.digizone.se/buy-and-sell/api/search/',
-            data: JSON.stringify(search_o),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            success: function (response_o) {
-                $('loader').hide();
-                $('#block').hide();
-                console.dir(response_o);
-            },
-            failure: function (errMsg) {
-                alert(errMsg);
-            }
-        });
-    }
+    
 
     // Helper functions ///////////////////////////////
 
@@ -242,27 +264,18 @@ $(document).ready(function() {
 
 
 
-    $("#search-county .dropdown-item").on("click", function (e) {
-        $("#search-county-button").text(e.target.text);
-        $("#search-county-button").attr("data-county", e.target.dataset.county);
-    });
+    
     $("#choose-lan .dropdown-item").on("click", function (e) {
         $("#choose-lan-dropdown-button").text(e.target.text);
     });
-    $("#search-category .dropdown-item").on("click", function (e) {
-        $("#search-category-button").text(e.target.text);
-        $("#search-category-button").attr(
-            "data-category",
-            e.target.dataset.category
-        );
-    });
-    $("#search-buy-or-sell .dropdown-item").on("click", function (e) {
-        $("#search-buy-or-sell-button").text(e.target.text);
-        $("#search-buy-or-sell-button").attr(
-            "data-buy-or-sell",
-            e.target.dataset.type
-        );
-    });
+    // $("#search-category .dropdown-item").on("click", function (e) {
+    //     $("#search-category-button").text(e.target.text);
+    //     $("#search-category-button").attr(
+    //         "data-category",
+    //         e.target.dataset.category
+    //     );
+    // });
+    
     $("#sort-dropdown .dropdown-item").on("click", function (e) {
         $("#sort-dropdown-button").text(e.target.text);
     });

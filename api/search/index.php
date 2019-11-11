@@ -27,7 +27,7 @@ header('Content-Type: application/json; charset=utf-8');
 require_once '../settings.php';
 require_once '../classes/db.php';
 
-$db_o = new DB($settings_a);
+$db_o = new DB($settings_aa);
 
 $searchArgs_o = json_decode(file_get_contents('php://input'));
 //print_r($db_o->search($search_o));exit;

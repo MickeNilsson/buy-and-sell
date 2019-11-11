@@ -186,7 +186,7 @@ class DB {
             $and_s = " AND";
             $this->array_push_assoc($placeholders_a, 'category', $params_o->category);
         }
-        if($params_o->type !== '3') {
+        if($params_o->type !== '0') {
             $sql_s .= $and_s . " type = :type";
             //$sql_s .= $and_s . " type = $params_o->type";
             $and_s = " AND";
