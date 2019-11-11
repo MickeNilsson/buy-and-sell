@@ -177,11 +177,11 @@ class DB {
 
     public function search($params_o) {
 
-        $sql_s = "SELECT id, type, category, county, header, price, image, published FROM ads WHERE";
-        $and_s = "";
+        $sql_s = "SELECT id, type, category, county, header, price, image, published FROM ads";
+        $and_s = " WHERE";
         $placeholders_a = [];
         if($params_o->category !== '0') {
-            $sql_s .= " category = :category";
+            $sql_s .= $and_s . " category = :category";
             //$sql_s .= " category = $params_o->category";
             $and_s = " AND";
             $this->array_push_assoc($placeholders_a, 'category', $params_o->category);
@@ -209,6 +209,7 @@ class DB {
         //return $sql_s;
         //$placeholders_a = ['body' => '%armborst%'];
         //$sql_s = "SELECT id FROM ads WHERE body LIKE :body";
+        file_put_contents('./debug.txt', $sql_s);
         $stmt_o = $this->pdo_o->prepare($sql_s);
         $stmt_o->execute($placeholders_a);
         
