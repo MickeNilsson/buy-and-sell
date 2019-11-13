@@ -183,7 +183,7 @@ if(!empty($_GET['id'])) {
         </div>
         <div class="row">
             <div class="col-sm">
-                <div class="list-group">
+                <div id="search-result" class="list-group">
                     <a data-toggle="modal" data-target="#item-modal" href="#"
                         class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">

@@ -63,11 +63,30 @@ $(document).ready(function() {
                 $('#loader').hide();
                 $('#block').hide();
                 console.dir(response_o);
+                displaySearchResult(response_o);
             },
             failure: function (errMsg) {
                 alert(errMsg);
             }
         });
+    }
+
+    function displaySearchResult(response_o) {
+
+        for(var i = 0; i < response_o.queryResult.length; i++) {
+            var item_o = response_o.queryResult[i];
+            var item_s = '<a data-toggle="modal" data-target="#item-modal" href="#"'
+                       + ' class="list-group-item list-group-item-action flex-column align-items-start">'
+                       + '<div class="d-flex w-100 justify-content-between">'
+                       + '<h5 class="mb-1">' + item_o.header + '</h5>'
+                       + '<small>' + item_o.published + '</small>'
+                       + '</div>'
+                       //<img style="max-height:100px;" src="./images/snes.jpg" alt="snes" />
+                       + '<div>' + item_o.price + '</div>'
+                       + '<small>' + item_o.county + '</small>'
+                       + '</a>';
+            $('#search-result').append(item_s);
+        }   
     }
 
     function setDropdownButton(menuItem) {
