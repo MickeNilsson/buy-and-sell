@@ -3,10 +3,10 @@ $(document).ready(function() {
 
     var invalidFields_o = {},
         invalidFile_b = true,
-        counties_a;
+        counties_a = [];
 
     init();
-    
+
     // Event listeners //////////////////////////////
 
     $('#post-new-ad-form')
@@ -87,7 +87,7 @@ $(document).ready(function() {
                        + '</div>'
                        + image_s
                        + '<div>' + item_o.price + ' kr</div>'
-                       + '<small>' + item_o.county + '</small>'
+                       + '<small>' + counties_a[item_o.county] + '</small>'
                        + '</a>';
             $('#search-result').append(item_s);
         }   
@@ -199,10 +199,13 @@ $(document).ready(function() {
         $.ajax({
             type: 'GET',
             url: 'http://www.digizone.se/buy-and-sell/api/counties/',
-            success: function (response_o) {
-              
-                console.dir(response_o);
+            success: function (response_a) {
 
+                var numOfResponses_i = response_a.length;
+                for(var i = 0; i < numOfResponses_i; i++) {
+                    counties_a[response_a[i].id] = response_a[i].name;
+                }
+                console.dir(counties_a);
             },
             failure: function (errMsg) {
                 alert(errMsg);
