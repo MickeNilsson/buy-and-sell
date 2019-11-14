@@ -2,8 +2,11 @@ $(document).ready(function() {
     'use strict';
 
     var invalidFields_o = {},
-        invalidFile_b = true;
+        invalidFile_b = true,
+        counties_a;
 
+    init();
+    
     // Event listeners //////////////////////////////
 
     $('#post-new-ad-form')
@@ -75,14 +78,15 @@ $(document).ready(function() {
 
         for(var i = 0; i < response_o.queryResult.length; i++) {
             var item_o = response_o.queryResult[i];
+            var image_s = item_o.image === 'no image' ? '' : '<img style="max-height:100px;" src="./uploads/' + item_o.id + '.' + item_o.image + '" alt="" />';
             var item_s = '<a data-toggle="modal" data-target="#item-modal" href="#"'
                        + ' class="list-group-item list-group-item-action flex-column align-items-start">'
                        + '<div class="d-flex w-100 justify-content-between">'
                        + '<h5 class="mb-1">' + item_o.header + '</h5>'
                        + '<small>' + item_o.published + '</small>'
                        + '</div>'
-                       //<img style="max-height:100px;" src="./images/snes.jpg" alt="snes" />
-                       + '<div>' + item_o.price + '</div>'
+                       + image_s
+                       + '<div>' + item_o.price + ' kr</div>'
                        + '<small>' + item_o.county + '</small>'
                        + '</a>';
             $('#search-result').append(item_s);
@@ -188,9 +192,23 @@ $(document).ready(function() {
         });
     }
 
-    
-
     // Helper functions ///////////////////////////////
+
+    function init() {
+
+        $.ajax({
+            type: 'GET',
+            url: 'http://www.digizone.se/buy-and-sell/api/counties/',
+            success: function (response_o) {
+              
+                console.dir(response_o);
+
+            },
+            failure: function (errMsg) {
+                alert(errMsg);
+            }
+        });
+    }
 
     function validateField(e) {
 
