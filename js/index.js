@@ -1,13 +1,45 @@
 $(document).ready(function() {
     'use strict';
 
-    var invalidFields_o = {},
+    var counties_a = [],
+        invalidFields_o = {},
         invalidFile_b = true,
-        counties_a = [];
+        latestSearchResult_a;
 
     init();
 
     // Event listeners //////////////////////////////
+
+    $('#search-result').on('click', '.list-group-item', function(e) {
+
+        e.preventDefault();
+        console.dir($(this).prop('id'));
+        console.dir(e.target.id);
+        debugger;
+        var chosenItemId_s = $(this).prop('id');
+        var numOfItems_i = latestSearchResult_a.length;
+        for(var i = 0; i < numOfItems_i; i++) {
+            console.dir(latestSearchResult_a[i]);
+            if(chosenItemId_s == latestSearchResult_a[i].id) {
+                var chosenItem_o = latestSearchResult_a[i];
+                console.dir(chosenItem_o);
+                $('#item-modal-header').text(chosenItem_o.header);
+                if(chosenItem_o.image !== 'no image') {
+                    $('#item-modal-image').prop('src', './uploads/' + chosenItem_o.id + '.' + chosenItem_o.image);
+                    $('#item-modal-image').show();
+                } else {
+                    $('#item-modal-image').hide();
+                }
+                $('#item-modal-price').text(chosenItem_o.price);
+                $('#item-modal-published').text(chosenItem_o.published);
+                $('#item-modal-county').text(counties_a[chosenItem_o.county]);
+                $('#item-modal-body').text(chosenItem_o.body);
+            }
+        }
+    });
+    
+    $('#image-upload')
+        .on('change', validateFileUpload);
 
     $('#post-new-ad-form')
         .on('change keyup', validateField)
@@ -15,9 +47,6 @@ $(document).ready(function() {
 
     $("#post-new-ad-modal")
         .on('show.bs.modal', resetForm);
-    
-    $('#image-upload')
-        .on('change', validateFileUpload);
 
     $('#search-button')
         .on('click', search);
@@ -26,6 +55,33 @@ $(document).ready(function() {
       '#search-category .dropdown-item,' +
       '#search-county .dropdown-item')
         .on('click', function() {setDropdownButton($(this))});
+    
+    $('#send-message-button').on('click', function() {
+
+        var message_o = {
+            message: $('#send-message-text').val()
+        };
+        console.dir(message_o);
+        $.ajax({
+            type: 'POST',
+            url: 'http://www.digizone.se/buy-and-sell/api/message/',
+            data: JSON.stringify(message_o),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (response_o) {
+              
+                console.dir(response_o);
+            },
+            failure: function (errMsg) {
+                alert(errMsg);
+            }
+        });
+    });
+
+    $('#show-send-message-modal-button').on('click', function () {
+
+        $('#send-message-modal').modal('show');
+    });
 
     // $('#search-category .dropdown-item')
     //     .on('click', function() {set('category')});
@@ -66,6 +122,7 @@ $(document).ready(function() {
                 $('#loader').hide();
                 $('#block').hide();
                 console.dir(response_o);
+                latestSearchResult_a = response_o.queryResult;
                 displaySearchResult(response_o);
             },
             failure: function (errMsg) {
@@ -79,7 +136,7 @@ $(document).ready(function() {
         for(var i = 0; i < response_o.queryResult.length; i++) {
             var item_o = response_o.queryResult[i];
             var image_s = item_o.image === 'no image' ? '' : '<img style="max-height:100px;" src="./uploads/' + item_o.id + '.' + item_o.image + '" alt="" />';
-            var item_s = '<a data-toggle="modal" data-target="#item-modal" href="#"'
+            var item_s = '<a id="' + item_o.id + '" data-toggle="modal" data-target="#item-modal" href="#"'
                        + ' class="list-group-item list-group-item-action flex-column align-items-start">'
                        + '<div class="d-flex w-100 justify-content-between">'
                        + '<h5 class="mb-1">' + item_o.header + '</h5>'
@@ -332,9 +389,7 @@ $(document).ready(function() {
         e.preventDefault();
     });
 
-    $("#show-send-message-modal-button").on("click", function (e) {
-        $("#send-message-modal").modal("show");
-    });
+    
 
     $("#body").on("keypress", function (e) {
         //console.dir(e.keyCode || e.which);

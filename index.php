@@ -43,6 +43,12 @@ if(!empty($_GET['id'])) {
             border-color: #ccc;
         }
 
+        .custom-file-upload {
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
         .invalid {
             border: 1px solid red;
             border-radius: 4px;
@@ -52,12 +58,11 @@ if(!empty($_GET['id'])) {
         input[type="file"] {
             display: none;
         }
-        .custom-file-upload {
-            border: 1px solid #ccc;
-            display: inline-block;
-            padding: 6px 12px;
-            cursor: pointer;
+        
+        .list-group-item:hover {
+            background-color: #eee;
         }
+
         .type-input-group {
             border: 1px solid white;
             border-radius: 4px;
@@ -184,7 +189,7 @@ if(!empty($_GET['id'])) {
         <div class="row">
             <div class="col-sm">
                 <div id="search-result" class="list-group">
-                    <a data-toggle="modal" data-target="#item-modal" href="#"
+                    <!-- <a data-toggle="modal" data-target="#item-modal" href="#"
                         class="list-group-item list-group-item-action flex-column align-items-start">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">Super Nintendo</h5>
@@ -211,7 +216,7 @@ if(!empty($_GET['id'])) {
                         <img style="max-height:100px;" src="./images/gamegear.jpg" alt="game gear" />
                         <div>800 kr</div>
                         <small class="text-muted">Kallhäll, Stockholm</small>
-                    </a>
+                    </a> -->
                 </div>
             </div>
         </div>
@@ -284,7 +289,10 @@ if(!empty($_GET['id'])) {
                         </div>
                         <div class="form-group">
                             <label for="price">Pris <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="price" placeholder="Pris" />
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="price" placeholder="Pris" />
+                                <div class="input-group-append"><span class="input-group-text">kr</span></div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="email">E-post <span class="text-danger">*</span></label>
@@ -315,44 +323,21 @@ if(!empty($_GET['id'])) {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="item-modal-header">
-                        <?= empty($ad_aa) ? '' : $ad_aa['header'] ?>
-                    </h5>
+                    <h5 class="modal-title" id="item-modal-header"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="card mb-3">
-                        <div id="item-modal-image">
-                            <?php if(!empty($ad_aa) && $ad_aa['image'] !== 'no image') { ?>
-                                <img src="<?= './uploads/' . $ad_aa['id'] . '.' . $ad_aa['image'] ?>"
-                                     class="card-img-top" 
-                                     alt="..." />
-                            <?php } ?>
-                        </div>
+                        <img id="item-modal-image" src="" class="card-img-top" alt="..." />
                         <div class="card-body">
-                            <div id="item-modal-body" class="card-text">
-                                <?= empty($ad_aa) ? '' : $ad_aa['body'] ?>
-                            </div>
-                            <div>
-                                Pris: <span id="item-modal-price"><?= empty($ad_aa) ? '' : $ad_aa['price'] ?></span> kr
-                            </div>
+                            <div id="item-modal-body" class="card-text"></div>
+                            <div>Pris: <span id="item-modal-price"></span> kr</div>
                             <div class="card-text">
-                                <small class="text-muted">Publicerades <?= empty($ad_aa) ? '' : $ad_aa['published'] ?></small>
+                                <small class="text-muted">Publicerades <span id="item-modal-published"></span></small>
                                 <br />
-                                <small class="text-muted">
-                                    <?php 
-                                        if(!empty($ad_aa)) {
-                                            foreach($counties_a as $county_a) {
-                                                if($county_a['id'] == $ad_aa['county']) {
-                                                    echo $county_a['name'];
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    ?>
-                                </small>
+                                <small class="text-muted"><span id="item-modal-county"></span></small>
                             </div>
                         </div>
                     </div>
@@ -381,15 +366,15 @@ if(!empty($_GET['id'])) {
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="send-message-textarea">Meddelande till annonsören</label>
-                        <textarea class="form-control" id="send-message-textarea" rows="3"></textarea>
+                        <label for="send-message-text">Meddelande till annonsören</label>
+                        <textarea class="form-control" id="send-message-text" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
                         Stäng
                     </button>
-                    <button type="button" class="btn btn-primary">Skicka</button>
+                    <button id="send-message-button" type="button" class="btn btn-primary">Skicka</button>
                 </div>
             </div>
         </div>

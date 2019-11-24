@@ -177,7 +177,7 @@ class DB {
 
     public function search($params_o) {
 
-        $sql_s = "SELECT id, type, category, county, header, price, image, published FROM ads";
+        $sql_s = "SELECT id, type, category, county, header, body, price, image, published FROM ads";
         $and_s = " WHERE";
         $placeholders_a = [];
         if($params_o->category !== '0') {
