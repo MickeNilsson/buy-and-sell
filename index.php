@@ -13,7 +13,7 @@ $ad_aa;
 if(!empty($_GET['id'])) {
     if(is_numeric($_GET['id'])) {
         $ad_aa = $db_o->fetchAd($_GET['id']);
-        //print_r($ad_aa);
+        print_r($ad_aa);
     }
 }
 
@@ -323,7 +323,7 @@ if(!empty($_GET['id'])) {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="item-modal-header"></h5>
+                    <h5 class="modal-title" id="item-modal-header"><?= empty($ad_aa) ? '' : $ad_aa['header'] ?></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
