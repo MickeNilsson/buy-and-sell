@@ -6,6 +6,12 @@ require_once './api/classes/db.php';
 $db_o = new DB($settings_a);
 $categories_a = $db_o->fetchCategories();
 $counties_a = $db_o->fetchCounties();
+$tempCounties_a = [];
+foreach($counties_a as $county_aa) {
+    $tempCounties_a[$county_aa['id']] = $county_aa['name'];
+}
+print_r($tempCounties_a);
+print_r($counties_a);
 //print_r($counties_a);
 // If query parameter "id" is present in the URL together with a value,
 // fetch data about this ad from the database.
@@ -337,7 +343,7 @@ if(!empty($_GET['id'])) {
                             <div class="card-text">
                                 <small class="text-muted">Publicerades <span id="item-modal-published"><?= empty($ad_aa) ? '' : $ad_aa['published'] ?></span></small>
                                 <br />
-                                <small class="text-muted"><span id="item-modal-county"></span></small>
+                                <small class="text-muted"><span id="item-modal-county"><?= empty($ad_aa) ? '' : $tempCounties_a[$ad_aa['county']] ?></span></small>
                             </div>
                         </div>
                     </div>
