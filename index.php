@@ -339,7 +339,7 @@ if(!empty($_GET['id'])) {
                         <img id="item-modal-image" src="" class="card-img-top" alt="..." />
                         <div class="card-body">
                             <div id="item-modal-body" class="card-text"><?= empty($ad_aa) ? '' : $ad_aa['body'] ?></div>
-                            <div>Pris: <span id="item-modal-price"></span> kr</div>
+                            <div>Pris: <span id="item-modal-price"><?= empty($ad_aa) ? '' : $ad_aa['price'] ?></span> kr</div>
                             <div class="card-text">
                                 <small class="text-muted">Publicerades <span id="item-modal-published"><?= empty($ad_aa) ? '' : $ad_aa['published'] ?></span></small>
                                 <br />
