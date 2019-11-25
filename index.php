@@ -19,7 +19,7 @@ $ad_aa;
 if(!empty($_GET['id'])) {
     if(is_numeric($_GET['id'])) {
         $ad_aa = $db_o->fetchAd($_GET['id']);
-        print_r($ad_aa);
+        //print_r($ad_aa);
     }
 }
 
@@ -388,7 +388,7 @@ if(!empty($_GET['id'])) {
     <div id="block"></div>
     <script src="./js/jquery.min.js"></script>
     <script src="./js/bootstrap.bundle.min.js"></script>
-    <script src="./js/index.js"></script>
+    <script src="./js/index.js?<?= rand() ?>"></script>
     <?php if(!empty($ad_aa)) { ?>
         <script>
             $('#item-modal').modal('show');
