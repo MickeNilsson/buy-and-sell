@@ -10,8 +10,8 @@ $tempCounties_a = [];
 foreach($counties_a as $county_aa) {
     $tempCounties_a[$county_aa['id']] = $county_aa['name'];
 }
-print_r($tempCounties_a);
-print_r($counties_a);
+//print_r($tempCounties_a);
+//print_r($counties_a);
 //print_r($counties_a);
 // If query parameter "id" is present in the URL together with a value,
 // fetch data about this ad from the database.
@@ -336,7 +336,7 @@ if(!empty($_GET['id'])) {
                 </div>
                 <div class="modal-body">
                     <div class="card mb-3">
-                        <img id="item-modal-image" src="" class="card-img-top" alt="..." />
+                        <img id="item-modal-image" <?= (empty($ad_aa) || $ad_aa['image'] === 'no image') ? 'style="display: none"' : '' ?>  src="<?= (!empty($ad_aa) && $ad_aa['image'] !== 'no image') ? './uploads/' . $ad_aa['id'] . '.' . $ad_aa['image'] : '' ?>" class="card-img-top" alt="..." />
                         <div class="card-body">
                             <div id="item-modal-body" class="card-text"><?= empty($ad_aa) ? '' : $ad_aa['body'] ?></div>
                             <div>Pris: <span id="item-modal-price"><?= empty($ad_aa) ? '' : $ad_aa['price'] ?></span> kr</div>
