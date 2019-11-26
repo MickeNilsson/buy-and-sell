@@ -122,6 +122,8 @@ $(document).ready(function() {
                 $('#loader').hide();
                 $('#block').hide();
                 $('#search-result').empty();
+                $('#navbarCollapse').removeClass('show');
+                $('.navbar-toggler').attr('aria-expanded', 'false').addClass('collapsed');
                 window.scrollTo(0, 0);
                 console.dir(response_o);
                 latestSearchResult_a = response_o.queryResult;
