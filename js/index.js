@@ -83,13 +83,7 @@ $(document).ready(function() {
         $('#send-message-modal').modal('show');
     });
 
-    // $('#search-category .dropdown-item')
-    //     .on('click', function() {set('category')});
-
-    // $('#search-county .dropdown-item')
-    //     .on('click', function() {set('county')});
-    
-    
+    $('#sort-dropdown .dropdown-item').on('click', sort);
     
     // Event handlers ///////////////////////////////
 
@@ -135,8 +129,35 @@ $(document).ready(function() {
         });
     }
 
+    function sort(e) {
+
+        var sortCriteria_s = e.target.text;
+        $('#sort-dropdown-button').text(sortCriteria_s);
+        var propName_s;
+        switch(sortCriteria_s) {
+            case 'Bokstavsordning':
+                propName_s = 'header';
+                break;
+            case 'Pris':
+                propName_s = 'price';
+                break;
+            case 'Senaste':
+                propName_s = 'published';
+        }
+        latestSearchResult_a.sort(function(a, b) {
+
+            var x = a[propName_s];
+            var y = b[propName_s];
+            if (x < y) {return -1;}
+            if (x > y) {return 1;}
+            return 0;
+        });
+        displaySearchResult({queryResult: latestSearchResult_a});
+    }
+
     function displaySearchResult(response_o) {
 
+        var searchResult_s = '';
         for(var i = 0; i < response_o.queryResult.length; i++) {
             var item_o = response_o.queryResult[i];
             var image_s = item_o.image === 'no image' ? '' : '<img style="max-height:100px;" src="./uploads/' + item_o.id + '.' + item_o.image + '" alt="" />';
@@ -150,8 +171,9 @@ $(document).ready(function() {
                        + '<div>' + item_o.price + ' kr</div>'
                        + '<small>' + counties_a[item_o.county] + '</small>'
                        + '</a>';
-            $('#search-result').append(item_s);
-        }   
+            searchResult_s += item_s;    
+        }
+        $('#search-result').html(searchResult_s);  
     }
 
     function setDropdownButton(menuItem) {
@@ -366,20 +388,9 @@ $(document).ready(function() {
 
 
     
-    $("#choose-lan .dropdown-item").on("click", function (e) {
-        $("#choose-lan-dropdown-button").text(e.target.text);
-    });
-    // $("#search-category .dropdown-item").on("click", function (e) {
-    //     $("#search-category-button").text(e.target.text);
-    //     $("#search-category-button").attr(
-    //         "data-category",
-    //         e.target.dataset.category
-    //     );
-    // });
     
-    $("#sort-dropdown .dropdown-item").on("click", function (e) {
-        $("#sort-dropdown-button").text(e.target.text);
-    });
+    
+    
     $("#add-pic-button").on("click", function (e) {
         $("#add-pic-file-input").show();
         $(this).hide();
