@@ -74,6 +74,11 @@ if(!empty($_GET['id'])) {
             border-radius: 4px;
             padding: 5px
         }
+        #terms {
+            font-weight: bold;
+            color: cornflowerblue;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -314,9 +319,13 @@ if(!empty($_GET['id'])) {
                             <input type="file" class="form-control-file" id="image-upload" />
                             <span id="filename"></span>
                         </div>
-                        <div class="modal-footer">
-                            <input id="close-new-ad-button" type="button" class="btn btn-secondare" data-dismiss="modal" value="Stäng" />
-                            <input id="post-new-ad-button" type="submit" class="btn btn-primary" value="Skicka" />
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="terms-checkbox">
+                            <label class="form-check-label" for="">Jag har läst och godkänner <span id="terms">villkoren</span>.</label>
+                        </div>
+                        <div class="modal-footer"> 
+                            <input id="close-new-ad-button" type="button" class="btn btn-secondary" data-dismiss="modal" value="Stäng" />
+                            <input id="post-new-ad-button" type="submit" class="btn btn-success" value="Skicka" />
                         </div>
                     </form>
                 </div>
@@ -352,7 +361,7 @@ if(!empty($_GET['id'])) {
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
                         Stäng
                     </button>
-                    <button id="show-send-message-modal-button" type="button" class="btn btn-primary"
+                    <button id="show-send-message-modal-button" type="button" class="btn btn-success"
                         data-dismiss="modal">
                         Svara annonsören
                     </button>
@@ -380,7 +389,7 @@ if(!empty($_GET['id'])) {
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
                         Stäng
                     </button>
-                    <button id="send-message-button" type="button" class="btn btn-primary">Skicka</button>
+                    <button id="send-message-button" type="button" class="btn btn-success">Skicka</button>
                 </div>
             </div>
         </div>

@@ -4,9 +4,22 @@ $(document).ready(function() {
     var counties_a = [],
         invalidFields_o = {},
         invalidFile_b = true,
-        latestSearchResult_a;
+        latestSearchResult_a,
+        popoverIsVisible = false;
 
     init();
+    var terms_s = '<p>buyandsell.se bär inte ansvaret för annonsens innehåll.</p>'
+                + '<p>buyandsell.se frånsäger sig ångerrätt\n\n (som är normalt sätt 14 dagar vid köp av varor eller tjänst via internet).</p>'
+                + '<p>Olagliga varor eller tjänster som (vapen, alkohol, tobak, narkotika, pornografi, läkemedel) kommer raderas och polisanmälas.</p>'
+                + '<p>Det är förbjudet att lägga upp i annonsen stötande eller kränkande för folkgrupper och/eller enskilda individer bilder eller text.</p>';
+    var options = {
+        animation: true,
+        content: terms_s,
+        html: true,
+        placement: 'top'
+    };
+
+    $('#terms').popover(options)
 
     // Event listeners //////////////////////////////
 
@@ -84,12 +97,35 @@ $(document).ready(function() {
     });
 
     $('#sort-dropdown .dropdown-item').on('click', sort);
+
+    $('#terms').on('click', function(e) {
+
+        e.stopPropagation();
+        if(popoverIsVisible) {
+            $('#terms').popover('hide');
+        } else {
+            $('#terms').popover('show');
+        }
+        popoverIsVisible = !popoverIsVisible;
+    })/* .on('mouseleave', function(e) {
+        $('#terms').popover('hide');
+    }) */;
+    
+    $('#terms-checkbox').on('change', function() {
+
+        if($(this).is(':checked')) {
+            $('#post-new-ad-button').prop('disabled', false);
+        } else {
+            $('#post-new-ad-button').prop('disabled', true);
+        }
+    });
     
     // Event handlers ///////////////////////////////
 
     function resetForm() {
 
         document.getElementById('post-new-ad-form').reset();
+        $('#post-new-ad-button').prop('disabled', true);
         var allFields_s = '#type, #category, #county, #header, #body, #price, #email, #phone';
         $(allFields_s).removeClass('border-danger');
         $('#filename').text('');
