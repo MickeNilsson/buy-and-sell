@@ -282,7 +282,7 @@ $(document).ready(function() {
         formData_o.set('type', fields_o.type);
         formData_o.set('image', document.getElementById('image-upload').files[0]);
         $.ajax({
-            url: 'api/post-new-ad/',
+            url: 'api/ad/',
             type: 'POST',
             enctype: 'multipart/form-data',
             data: formData_o,

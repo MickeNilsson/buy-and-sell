@@ -34,6 +34,17 @@ if($result_aa['status'] === 'success' && !empty($_FILES['image'])) {
     $result_b = uploadImage($_FILES['image'], $result_aa['id']);
     $result_aa['fileUpload'] = $result_b;
 }
+
+$message_s ='<html><head>Ny annons</head><body>'
+    . '<h3>Ny annons på buyandsell.se</h3>'
+    . '<div><p>Du hittar din annons <a target="_blank" href="http://www.digizone.se/buy-and-sell/?id=' . $result_aa['id'] . '">här</a>.</p>'
+    . '<p>Tack för att du använder dig av Buy and Sell!</p>'
+    . '</div></body></html>';
+// To send HTML mail, the Content-type header must be set
+//$headers[] = 'MIME-Version: 1.0';
+$headers_a[] = 'Content-type: text/html; charset=utf-8';
+$headers_a[] = 'From: Buy and Sell <info@digizone.se>';
+$success_b = mail($args_aa['email'], 'Ny annons på Buy and Sell',  $message_s, implode('\r\n', $headers_a));
 echo json_encode($result_aa, JSON_UNESCAPED_UNICODE);
 
 ?>
