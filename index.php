@@ -348,7 +348,7 @@ if(!empty($_GET['id'])) {
                         <img id="item-modal-image" <?= (empty($ad_aa) || $ad_aa['image'] === 'no image') ? 'style="display: none"' : '' ?>  src="<?= (!empty($ad_aa) && $ad_aa['image'] !== 'no image') ? './uploads/' . $ad_aa['id'] . '.' . $ad_aa['image'] : '' ?>" class="card-img-top" alt="..." />
                         <div class="card-body">
                             <div id="item-modal-body" class="card-text"><?= empty($ad_aa) ? '' : $ad_aa['body'] ?></div>
-                            <div>Pris: <span id="item-modal-price"><?= empty($ad_aa) ? '' : $ad_aa['price'] ?></span> kr</div>
+                            <div <?= !empty($ad_aa) ? $ad_aa['price'] === -1 ? 'style="display:none"' : '' : '' ?>>Pris: <span id="item-modal-price"><?= empty($ad_aa) ? '' : $ad_aa['price'] ?></span> kr</div>
                             <div class="card-text">
                                 <small class="text-muted">Publicerades <span id="item-modal-published"><?= empty($ad_aa) ? '' : $ad_aa['published'] ?></span></small>
                                 <br />

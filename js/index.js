@@ -28,7 +28,6 @@ $(document).ready(function() {
         e.preventDefault();
         console.dir($(this).prop('id'));
         console.dir(e.target.id);
-        debugger;
         var chosenItemId_s = $(this).prop('id');
         var numOfItems_i = latestSearchResult_a.length;
         for(var i = 0; i < numOfItems_i; i++) {
@@ -43,7 +42,13 @@ $(document).ready(function() {
                 } else {
                     $('#item-modal-image').hide();
                 }
-                $('#item-modal-price').text(chosenItem_o.price);
+                if(chosenItem_o.price === -1) {
+                    $('#item-modal-price').parent().hide();
+                } else {
+                    $('#item-modal-price').parent().show();
+                    $('#item-modal-price').text(chosenItem_o.price);
+                }
+                
                 $('#item-modal-published').text(chosenItem_o.published);
                 $('#item-modal-county').text(counties_a[chosenItem_o.county]);
                 $('#item-modal-body').text(chosenItem_o.body);
@@ -117,6 +122,23 @@ $(document).ready(function() {
             $('#post-new-ad-button').prop('disabled', false);
         } else {
             $('#post-new-ad-button').prop('disabled', true);
+        }
+    });
+
+    $('#type').on('change', function(e) {
+
+        e.stopPropagation();
+        var type_s =  e.target.id;
+        switch(type_s) {
+            case 'sell':
+                $('label[for="price"] > span').show();
+                break;
+            case 'buy':
+                $('label[for="price"] > span').hide();
+                $('#price').removeClass('border-danger');
+                break;
+            case 'rent-out':
+                $('label[for="price"] > span').show();
         }
     });
     
@@ -204,7 +226,7 @@ $(document).ready(function() {
                        + '<small>' + item_o.published + '</small>'
                        + '</div>'
                        + image_s
-                       + '<div>' + item_o.price + ' kr</div>'
+                       + (item_o.price !== -1 ? '<div>' + item_o.price + ' kr</div>' : '')
                        + '<small>' + counties_a[item_o.county] + '</small>'
                        + '</a>';
             searchResult_s += item_s;    
@@ -259,7 +281,12 @@ $(document).ready(function() {
                 fields_o[field_s] = document.getElementById(field_s);
                 fieldIsValid_b = validateField(fields_o[field_s]);
                 if(fieldIsValid_b) {
-                    fields_o[field_s] = fields_o[field_s].value || $('input[name="type"]:checked').val();   
+                    console.log(field_s);
+                    if(field_s === 'type') {
+                        fields_o[field_s] = $('input[name="type"]:checked').val();
+                    } else {
+                        fields_o[field_s] = fields_o[field_s].value
+                    }   
                 } else {
                     formIsValid_b = false;
                 }
@@ -355,11 +382,13 @@ $(document).ready(function() {
                 if(field_o.value.length > 10) {
                     field_o.value = field_o.value.substr(0, 10);
                 }
-                if(isNaN(parseInt(field_o.value))) {
-                    field_o.value = '';
-                    valid_b = false;
-                } else {
-                    field_o.value = parseInt(field_o.value);
+                if($('label[for="price"] > span').is(':visible')) {
+                    if(isNaN(parseInt(field_o.value))) {
+                        field_o.value = '';
+                        valid_b = false;
+                    } else {
+                        field_o.value = parseInt(field_o.value);
+                    }
                 }
                 break;
             case 'category': case 'county': 

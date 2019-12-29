@@ -25,7 +25,7 @@ $args_aa = array(
     'email'     => empty($_POST['email']) ? '' : $_POST['email'],
     'header'    => empty($_POST['header']) ? '' : $_POST['header'],
     'image'     => $fileExtension_s,
-    'price'     => empty($_POST['price']) ? '' : $_POST['price'],
+    'price'     => empty($_POST['price']) ? '-1' : $_POST['price'],
     'published' => date('Y-m-d'),
     'type'      => empty($_POST['type']) ? '' : $_POST['type']
 );
