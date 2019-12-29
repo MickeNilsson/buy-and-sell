@@ -353,6 +353,17 @@ if(!empty($_GET['id'])) {
                                 <small class="text-muted">Publicerades <span id="item-modal-published"><?= empty($ad_aa) ? '' : $ad_aa['published'] ?></span></small>
                                 <br />
                                 <small class="text-muted"><span id="item-modal-county"><?= empty($ad_aa) ? '' : $tempCounties_a[$ad_aa['county']] ?></span></small>
+                                <?php
+                                    $type = '';
+                                    if(!empty($ad_aa)) {
+                                        switch($ad_aa['type']) {
+                                            case 1: $type_s = 'Säljes'; break;
+                                            case 2: $type_s = 'Köpes'; break;
+                                            case 3: $type_s = 'Uthyres'; break;
+                                        }
+                                    }
+                                ?>
+                                <small id="item-modal-type" style="float:right" class="text-muted"><?= $type_s ?></small>
                             </div>
                         </div>
                     </div>

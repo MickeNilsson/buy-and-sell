@@ -51,6 +51,13 @@ $(document).ready(function() {
                 
                 $('#item-modal-published').text(chosenItem_o.published);
                 $('#item-modal-county').text(counties_a[chosenItem_o.county]);
+                var type_s = '';
+                switch(chosenItem_o.type) {
+                    case 1: type_s = 'Säljes'; break;
+                    case 2: type_s = 'Köpes'; break;
+                    case 3: type_s = 'Uthyres'; break;
+                }
+                $('#item-modal-type').text(type_s);
                 $('#item-modal-body').text(chosenItem_o.body);
             }
         }
@@ -218,6 +225,12 @@ $(document).ready(function() {
         var searchResult_s = '';
         for(var i = 0; i < response_o.queryResult.length; i++) {
             var item_o = response_o.queryResult[i];
+            var type_s = '';
+            switch(item_o.type) {
+                case 1: type_s = 'Säljes'; break;
+                case 2: type_s = 'Köpes'; break;
+                case 3: type_s = 'Uthyres'; break;
+            }
             var image_s = item_o.image === 'no image' ? '' : '<img style="max-height:100px;" src="./uploads/' + item_o.id + '.' + item_o.image + '" alt="" />';
             var item_s = '<a id="' + item_o.id + '" data-toggle="modal" data-target="#item-modal" href="#"'
                        + ' class="list-group-item list-group-item-action flex-column align-items-start">'
@@ -227,7 +240,8 @@ $(document).ready(function() {
                        + '</div>'
                        + image_s
                        + (item_o.price !== -1 ? '<div>' + item_o.price + ' kr</div>' : '')
-                       + '<small>' + counties_a[item_o.county] + '</small>'
+                       + '<small>' + counties_a[item_o.county] +'</small>'
+                       + '<small style="float:right">' + type_s + '</small>'
                        + '</a>';
             searchResult_s += item_s;    
         }
