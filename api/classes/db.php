@@ -204,6 +204,7 @@ class DB {
             $this->array_push_assoc($placeholders_a, 'body', "%$params_o->text%");
             $this->array_push_assoc($placeholders_a, 'header', "%$params_o->text%");
         }
+        $sql_s .= " ORDER BY published DESC";
         //$placeholders_a = ['body' => '%armborst%'];
         //return json_encode($placeholders_a, JSON_UNESCAPED_UNICODE);
         //return $sql_s;
