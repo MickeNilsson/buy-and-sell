@@ -19,9 +19,17 @@ $(document).ready(function() {
         placement: 'top'
     };
 
-    $('#terms').popover(options)
+    $('#terms').popover(options);
 
     // Event listeners //////////////////////////////
+
+    $(document).on('click', function(e) {
+
+        var popoverIsVisible = $('#terms').attr('aria-describedby')
+        if(popoverIsVisible) {
+            $('#terms').popover('hide');
+        }
+    });
 
     $('#search-result').on('click', '.list-group-item', function(e) {
 
@@ -29,6 +37,7 @@ $(document).ready(function() {
         console.dir($(this).prop('id'));
         console.dir(e.target.id);
         var chosenItemId_s = $(this).prop('id');
+        $('#item-modal-header').data('item-id', chosenItemId_s);
         var numOfItems_i = latestSearchResult_a.length;
         for(var i = 0; i < numOfItems_i; i++) {
             console.dir(latestSearchResult_a[i]);
@@ -84,9 +93,10 @@ $(document).ready(function() {
     $('#send-message-button').on('click', function() {
 
         var message_o = {
-            message: $('#send-message-text').val()
+            message: $('#send-message-text').val(),
+            itemId: parseInt($('#item-modal-header').data('item-id'))
         };
-        console.dir(message_o);
+        $(this).prop('disabled', true);
         $.ajax({
             type: 'POST',
             url: 'http://www.digizone.se/buy-and-sell/api/message/',
@@ -95,7 +105,19 @@ $(document).ready(function() {
             dataType: 'json',
             success: function (response_o) {
               
+                $('#send-message-text').parent().hide();
+                $('#send-message-button').hide();
                 console.dir(response_o);
+                if(response_o.status === 'ok') {
+                    $('#send-message-response')
+                        .text('Ditt meddelande har nu skickats till annonsören.')
+                        .show();
+                } else {
+                    $('#send-message-response')
+                        .text('Något gick fel. Ditt meddelande har inte skickats till annonsören.')
+                        .show();
+                }
+                
             },
             failure: function (errMsg) {
                 alert(errMsg);
@@ -105,6 +127,13 @@ $(document).ready(function() {
 
     $('#show-send-message-modal-button').on('click', function () {
 
+        $('#send-message-text')
+            .val('')
+            .parent().show();
+        $('#send-message-button')
+            .prop('disabled', false)    
+            .show();
+        $('#send-message-response').hide();
         $('#send-message-modal').modal('show');
     });
 
@@ -119,9 +148,7 @@ $(document).ready(function() {
             $('#terms').popover('show');
         }
         popoverIsVisible = !popoverIsVisible;
-    })/* .on('mouseleave', function(e) {
-        $('#terms').popover('hide');
-    }) */;
+    });
     
     $('#terms-checkbox').on('change', function() {
 
@@ -132,19 +159,22 @@ $(document).ready(function() {
         }
     });
 
-    $('#type').on('change', function(e) {
+    $('#type').on('change', 'input[type=radio]', function(e) {
 
-        e.stopPropagation();
-        var type_s =  e.target.id;
-        switch(type_s) {
-            case 'sell':
+        $(this).removeClass('border-danger');
+        console.log('type_s');
+        console.dir(e.target);
+        var type_i =  e.target.value;
+        console.log(type_i);
+        switch(type_i) {
+            case '1':
                 $('label[for="price"] > span').show();
                 break;
-            case 'buy':
+            case '2':
                 $('label[for="price"] > span').hide();
                 $('#price').removeClass('border-danger');
                 break;
-            case 'rent-out':
+            case '3':
                 $('label[for="price"] > span').show();
         }
     });
@@ -198,7 +228,7 @@ $(document).ready(function() {
 
         var sortCriteria_s = e.target.text;
         $('#sort-dropdown-button').text(sortCriteria_s);
-        var propName_s;
+        var asc_i = 1, propName_s;
         switch(sortCriteria_s) {
             case 'Bokstavsordning':
                 propName_s = 'header';
@@ -208,13 +238,14 @@ $(document).ready(function() {
                 break;
             case 'Senaste':
                 propName_s = 'published';
+                asc_i = -1;
         }
         latestSearchResult_a.sort(function(a, b) {
 
             var x = a[propName_s];
             var y = b[propName_s];
-            if (x < y) {return -1;}
-            if (x > y) {return 1;}
+            if (x < y) {return -asc_i;}
+            if (x > y) {return asc_i;}
             return 0;
         });
         displaySearchResult({queryResult: latestSearchResult_a});
@@ -474,10 +505,6 @@ $(document).ready(function() {
         $("#add-pic-file-input").show();
         $(this).hide();
     });
-    /* $("#add-phone-button").on("click", function (e) {
-            $("#add-phone-text-input").show();
-            $(this).hide();
-        }); */
 
     $("a").on("click", function (e) {
         e.preventDefault();

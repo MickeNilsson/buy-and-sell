@@ -91,17 +91,6 @@ if(!empty($_GET['id'])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul id="navbar-search-section" class="navbar-nav mr-auto">
-                <!-- <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li> -->
                 <li class="nav-item" style="background: none;">
                     <form class="form-inline mt-2 mt-md-0"><input id="search-text" class="form-control mr-sm-2" type="text"
                             placeholder="Sök" aria-label="Search" /></form>
@@ -174,13 +163,6 @@ if(!empty($_GET['id'])) {
     </nav>
 
     <main role="main" class="container">
-        <!-- <div class="jumbotron">
-            <h1>Navbar example</h1>
-            <p class="lead">This example is a quick exercise to illustrate how fixed to top navbar works. As you
-                scroll, it will remain fixed
-                to the top of your browser's viewport.</p>
-            <a class="btn btn-lg btn-primary" href="../../components/navbar/" role="button">View navbar docs &raquo;</a>
-        </div> -->
 
         <div class="row mb-3">
             <div class="col-sm">
@@ -199,36 +181,7 @@ if(!empty($_GET['id'])) {
         </div>
         <div class="row">
             <div class="col-sm">
-                <div id="search-result" class="list-group">
-                    <!-- <a data-toggle="modal" data-target="#item-modal" href="#"
-                        class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Super Nintendo</h5>
-                            <small>Idag 14.30</small>
-                        </div>
-                        <img style="max-height:100px;" src="./images/snes.jpg" alt="snes" />
-                        <div>1000 kr</div>
-                        <small>Östermalm, Stockholm</small>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Sega Megadrive</h5>
-                            <small class="text-muted">Igår 15:40</small>
-                        </div>
-                        <img style="max-height:100px;" src="./images/megadrive.jpg" alt="megadrive" />
-                        <div>1500 kr</div>
-                        <small class="text-muted">Hägersten, Stockholm</small>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action flex-column  align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Sega Game Gear</h5>
-                            <small class="text-muted">3 dagar sedan</small>
-                        </div>
-                        <img style="max-height:100px;" src="./images/gamegear.jpg" alt="game gear" />
-                        <div>800 kr</div>
-                        <small class="text-muted">Kallhäll, Stockholm</small>
-                    </a> -->
-                </div>
+                <div id="search-result" class="list-group"></div>
             </div>
         </div>
     </main>
@@ -395,6 +348,7 @@ if(!empty($_GET['id'])) {
                         <label for="send-message-text">Meddelande till annonsören</label>
                         <textarea class="form-control" id="send-message-text" rows="3"></textarea>
                     </div>
+                    <div id="send-message-response"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
