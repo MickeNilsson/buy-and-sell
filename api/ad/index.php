@@ -39,6 +39,7 @@ if($result_aa['status'] === 'success' && !empty($_FILES['image'])) {
 $message_s ='<html><head>Ny annons</head><body>'
     . '<h3>Ny annons på buyandsell.se</h3>'
     . '<div><p>Du hittar din annons <a target="_blank" href="http://www.digizone.se/buy-and-sell/?id=' . $result_aa['id'] . '">här</a>.</p>'
+    . '<p>För att ta bort din annons, klicka <a target="_blank" href="http://www.digizone.se/buy-and-sell/?delete=' . $args_aa['uuid'] . '">här</a>'
     . '<p>Tack för att du använder dig av Buy and Sell!</p>'
     . '</div></body></html>';
 // To send HTML mail, the Content-type header must be set

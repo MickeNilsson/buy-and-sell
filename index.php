@@ -21,6 +21,8 @@ if(!empty($_GET['id'])) {
         $ad_aa = $db_o->fetchAd($_GET['id']);
         //print_r($ad_aa);
     }
+} elseif(!empty($_GET['delete'])) {
+    $db_o->deleteAd($_GET['delete']);
 }
 
 ?>

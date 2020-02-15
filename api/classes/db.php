@@ -54,6 +54,13 @@ class DB {
         return $response_aa;
     }
 
+    public function deleteAd($uuid) {
+
+        $sql_s = "DELETE FROM ads WHERE ads.uuid = :uuid";
+        $stmt_o = $this->pdo_o->prepare($sql_s);
+        $stmt_o->execute(['uuid' => $uuid]);
+    }
+
     /**
      * Fetch a row from the ads table.
      * 
