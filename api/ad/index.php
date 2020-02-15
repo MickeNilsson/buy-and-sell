@@ -43,9 +43,9 @@ $message_s ='<html><head>Ny annons</head><body>'
     . '</div></body></html>';
 // To send HTML mail, the Content-type header must be set
 //$headers[] = 'MIME-Version: 1.0';
-$headers_a[] = 'Content-type: text/html; charset=utf-8';
-$headers_a[] = 'From: Buy and Sell <info@digizone.se>';
-$success_b = mail($args_aa['email'], 'Ny annons på Buy and Sell',  $message_s, implode('\r\n', $headers_a));
+$headers_s = 'Content-Type: text/html; charset=utf-8' . "\r\n"
+           . 'From: Buy and Sell <info@digizone.se>';
+$success_b = mail($args_aa['email'], 'Ny annons på Buy and Sell',  $message_s, $headers_s);
 echo json_encode($result_aa, JSON_UNESCAPED_UNICODE);
 
 ?>
