@@ -27,7 +27,8 @@ $args_aa = array(
     'image'     => $fileExtension_s,
     'price'     => empty($_POST['price']) ? '-1' : $_POST['price'],
     'published' => date('Y-m-d'),
-    'type'      => empty($_POST['type']) ? '' : $_POST['type']
+    'type'      => empty($_POST['type']) ? '' : $_POST['type'],
+    'uuid'      => uniqid()
 );
 $result_aa = $db_o->add($args_aa);
 if($result_aa['status'] === 'success' && !empty($_FILES['image'])) {
