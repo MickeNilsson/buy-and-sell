@@ -56,9 +56,21 @@ class DB {
 
     public function deleteAd($uuid) {
 
+        $sql_s = "SELECT ads.id, ads.image, ads.header FROM ads WHERE ads.uuid = :uuid";
+        $stmt_o = $this->pdo_o->prepare($sql_s);
+        $stmt_o->execute(['uuid' => $uuid]);
+        $ad_aa = $stmt_o->fetch();
+        if(empty($ad_aa)) {
+            return '';
+        }
         $sql_s = "DELETE FROM ads WHERE ads.uuid = :uuid";
         $stmt_o = $this->pdo_o->prepare($sql_s);
         $stmt_o->execute(['uuid' => $uuid]);
+        if($ad_aa['image'] !== 'no image') {
+            $fileName_s = $ad_aa['id'] . '.' . $ad_aa['image'];
+            unlink('./uploads/' . $fileName_s);
+        }
+        return $ad_aa['header'];
     }
 
     /**
