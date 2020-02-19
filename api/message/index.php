@@ -18,7 +18,7 @@ switch($_SERVER['REQUEST_METHOD']) {
         require_once '../classes/db.php';
         $db_o = new DB($settings_aa);
         $ad_aa = $db_o->fetchAd($request_o->itemId);
-        $mailWasSent_b = sendMessage($ad_aa['email'], $request_o->message);
+        $mailWasSent_b = sendMessage($ad_aa, $request_o->message);
         $response_o->status = $mailWasSent_b ? 'ok' : 'error';
         $response_o->message = $request_o->message;
         break;
