@@ -92,9 +92,13 @@ $(document).ready(function() {
     
     $('#send-message-button').on('click', function() {
 
+        var itemId_s = $('#item-modal-header').data('item-id');
+        if(!itemId_s) {
+            itemId_s = qs('id');
+        }
         var message_o = {
             message: $('#send-message-text').val(),
-            itemId: parseInt($('#item-modal-header').data('item-id'))
+            itemId: parseInt(itemId_s)
         };
         $(this).prop('disabled', true);
         $.ajax({
@@ -475,6 +479,12 @@ $(document).ready(function() {
         
         $('#' + field_s).removeClass('border-danger');
         delete invalidFields_o[field_s];
+    }
+
+    function qs(key) {
+        key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx meta chars
+        var match = location.search.match(new RegExp("[?&]"+key+"=([^&]+)(&|$)"));
+        return match && decodeURIComponent(match[1].replace(/\+/g, " "));
     }
 
 
