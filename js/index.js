@@ -391,6 +391,7 @@ $(document).ready(function() {
 
     function init() {
 
+        $('[data-toggle="popover"]').popover();
         $.ajax({
             type: 'GET',
             url: 'http://www.digizone.se/buy-and-sell/api/counties/',

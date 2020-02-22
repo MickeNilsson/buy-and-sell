@@ -277,7 +277,15 @@ if(!empty($_GET['id'])) {
                         </div>
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="terms-checkbox">
-                            <label class="form-check-label" for="">Jag har läst och godkänner <span id="terms">villkoren</span>.</label>
+                            <!-- <label class="form-check-label" for="">Jag har läst och godkänner <span id="terms">villkoren</span>.</label> -->
+                            <label class="form-check-label" for="terms-checkbox">Jag har läst och godkänner
+                            <a href="#"
+                               data-animation="true"
+                               data-html="true"
+                               data-placement="top"
+                               data-trigger="click hover"
+                               data-content="<p>buyandsell.se bär inte ansvaret för annonsens innehåll.</p><p>buyandsell.se frånsäger sig ångerrätt\n\n (som är normalt sätt 14 dagar vid köp av varor eller tjänst via internet).</p><p>Olagliga varor eller tjänster som (vapen, alkohol, tobak, narkotika, pornografi, läkemedel) kommer raderas och polisanmälas.</p><p>Det är förbjudet att lägga upp i annonsen stötande eller kränkande för folkgrupper och/eller enskilda individer bilder eller text.</p>"
+                               data-toggle="popover" >villkoren</a>.</label>
                         </div>
                         <div class="modal-footer"> 
                             <input id="close-new-ad-button" type="button" class="btn btn-secondary" data-dismiss="modal" value="Stäng" />
