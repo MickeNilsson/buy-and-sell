@@ -1,7 +1,7 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
@@ -9,8 +9,8 @@ header('Access-Control-Allow-Headers: Content-Type');
 header('Content-Type: application/json; charset=utf-8');
 
 require_once '../settings.php';
-require_once '../classes/db.php';
-require_once '../classes/upload-image.php';
+require_once '../../utilities/db.php';
+require_once '../../utilities/upload-image.php';
 
 $db_o = new DB($settings_aa); 
 if(empty($_FILES['image'])) {
@@ -48,5 +48,3 @@ $headers_s = 'Content-Type: text/html; charset=utf-8' . "\r\n"
            . 'From: Buy and Sell <info@digizone.se>';
 $success_b = mail($args_aa['email'], 'Ny annons på Buy and Sell',  $message_s, $headers_s);
 echo json_encode($result_aa, JSON_UNESCAPED_UNICODE);
-
-?>

@@ -26,5 +26,3 @@ function imageResizer($srcImgPath_s, $destImgPath_s, $destImgWidth_i) {
     /* create the physical thumbnail image to its destination */
     imagejpeg($destImg_r, $destImgPath_s);
 }
-
-?>

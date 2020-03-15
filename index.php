@@ -1,7 +1,7 @@
 <?php
 
 require_once './backend/settings.php';
-require_once './api/classes/db.php';
+require_once './backend/utilities/db.php';
 
 $db_o = new DB($settings_a);
 $categories_a = $db_o->fetchCategories();
@@ -35,8 +35,8 @@ if(!empty($_GET['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Buy and Sell</title>
-    <link rel="stylesheet" href="./css/bootstrap.min.css" />
-    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./frontend/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./frontend/css/index.css" />
     <style>
         button,
         button:active,
@@ -393,9 +393,9 @@ if(!empty($_GET['id'])) {
     </div>
 
     <div id="block"></div>
-    <script src="./js/jquery.min.js"></script>
-    <script src="./js/bootstrap.bundle.min.js"></script>
-    <script src="./js/index.js?<?= rand() ?>"></script>
+    <script src="./frontend/js/jquery.min.js"></script>
+    <script src="./frontend/js/bootstrap.bundle.min.js"></script>
+    <script src="./frontend/js/index.js?<?= rand() ?>"></script>
     <?php if(!empty($ad_aa)) { ?>
         <script>
             $('#item-modal').modal('show');

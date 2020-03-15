@@ -201,39 +201,28 @@ class DB {
         $placeholders_a = [];
         if($params_o->category !== '0') {
             $sql_s .= $and_s . " category = :category";
-            //$sql_s .= " category = $params_o->category";
             $and_s = " AND";
             $this->array_push_assoc($placeholders_a, 'category', $params_o->category);
         }
         if($params_o->type !== '0') {
             $sql_s .= $and_s . " type = :type";
-            //$sql_s .= $and_s . " type = $params_o->type";
             $and_s = " AND";
             $this->array_push_assoc($placeholders_a, 'type', $params_o->type);
         }
         if($params_o->county !== '0') {
             $sql_s .= $and_s . " county = :county";
-            //$sql_s .= $and_s . " county = $params_o->county";
             $and_s = " AND";
             $this->array_push_assoc($placeholders_a, 'county', $params_o->county);
         }
         if($params_o->text !== '') {
             $sql_s .= $and_s . " (body LIKE :body OR header LIKE :header)";
-            //$sql_s .= $and_s . " body LIKE %$params_o->text%";
             $this->array_push_assoc($placeholders_a, 'body', "%$params_o->text%");
             $this->array_push_assoc($placeholders_a, 'header', "%$params_o->text%");
         }
         $sql_s .= " ORDER BY published DESC";
-        //$placeholders_a = ['body' => '%armborst%'];
-        //return json_encode($placeholders_a, JSON_UNESCAPED_UNICODE);
-        //return $sql_s;
-        //$placeholders_a = ['body' => '%armborst%'];
-        //$sql_s = "SELECT id FROM ads WHERE body LIKE :body";
         file_put_contents('./debug.txt', $sql_s);
         $stmt_o = $this->pdo_o->prepare($sql_s);
         $stmt_o->execute($placeholders_a);
-        
-        //$stmt_o->execute(['body' => "%$%"]);
         $queryResult_s = '';
         $queryResult_a = [];
         while($row_o = $stmt_o->fetch()) {
@@ -247,6 +236,4 @@ class DB {
         $array[$key] = $value;
         return $array;
     }
-} 
-
-?>
+}

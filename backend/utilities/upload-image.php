@@ -24,5 +24,3 @@ function uploadImage($file_a, $id_i) {
         return false;
     }
 }
-
-?>

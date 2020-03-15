@@ -25,6 +25,3 @@ function sendMessage($ad_aa, $message_s) {
     $mailWasSent_b = mail($ad_aa['email'], 'Ett svar på din annons på buyandsell.se!', $htmlMail_s, $headers_s);
     return $mailWasSent_b;
 }
-
-
-?>
