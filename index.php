@@ -3,7 +3,7 @@
 require_once './backend/settings.php';
 require_once './backend/utilities/db.php';
 
-$db_o = new DB($settings_a);
+$db_o = new DB($settings_aa);
 $categories_a = $db_o->fetchCategories();
 $counties_a = $db_o->fetchCounties();
 $tempCounties_a = [];

@@ -103,7 +103,7 @@ $(document).ready(function() {
         $(this).prop('disabled', true);
         $.ajax({
             type: 'POST',
-            url: 'http://www.digizone.se/buy-and-sell/api/message/',
+            url: './backend/api/message/',
             data: JSON.stringify(message_o),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
@@ -207,7 +207,7 @@ $(document).ready(function() {
         $('#block').show();
         $.ajax({
             type: 'POST',
-            url: 'http://www.digizone.se/buy-and-sell/api/search/',
+            url: './backend/api/search/',
             data: JSON.stringify(search_o),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
@@ -358,7 +358,7 @@ $(document).ready(function() {
         formData_o.set('type', fields_o.type);
         formData_o.set('image', document.getElementById('image-upload').files[0]);
         $.ajax({
-            url: 'api/ad/',
+            url: './backend/api/ad/',
             type: 'POST',
             enctype: 'multipart/form-data',
             data: formData_o,
@@ -394,7 +394,7 @@ $(document).ready(function() {
         $('[data-toggle="popover"]').popover();
         $.ajax({
             type: 'GET',
-            url: 'http://www.digizone.se/buy-and-sell/api/counties/',
+            url: './backend/api/counties/',
             success: function (response_a) {
 
                 var numOfResponses_i = response_a.length;
@@ -486,73 +486,5 @@ $(document).ready(function() {
         key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx meta chars
         var match = location.search.match(new RegExp("[?&]"+key+"=([^&]+)(&|$)"));
         return match && decodeURIComponent(match[1].replace(/\+/g, " "));
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
-    
-    
-    $("#add-pic-button").on("click", function (e) {
-        $("#add-pic-file-input").show();
-        $(this).hide();
-    });
-
-    $("a").on("click", function (e) {
-        e.preventDefault();
-    });
-
-    
-
-    $("#body").on("keypress", function (e) {
-        //console.dir(e.keyCode || e.which);
-        var body_o = $(this);
-        if (body_o.val().length > 400) {
-            body_o.val(body_o.val().substr(0, 400));
-        }
-        //console.log($('#ad').val().length);
-    });
-
-    $("#header").on("keypress", function (e) {
-        //console.dir(e.keyCode || e.which);
-        var header_o = $(this);
-        if (header_o.val().length > 100) {
-            header_o.val(header_o.val().substr(0, 100));
-        }
-        //console.log($('#ad').val().length);
-    });
-
-    
-
-    
-
-
-
-    $('#search-text').on('keypress', function(event_o) {
-        event_o.stopPropagation();
-        var code_i = event_o.keyCode || event_o.which;
-        if(code_i === 13) {
-            event_o.preventDefault();
-            $("#search-button").click();
-        }
-    });       
+    }      
 });

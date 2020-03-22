@@ -8,7 +8,7 @@ header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 header('Content-Type: application/json; charset=utf-8');
 
-require_once '../settings.php';
+require_once '../../settings.php';
 require_once '../../utilities/db.php';
 require_once '../../utilities/upload-image.php';
 
