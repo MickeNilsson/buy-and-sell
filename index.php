@@ -284,7 +284,7 @@ if(!empty($_GET['id'])) {
                                data-html="true"
                                data-placement="top"
                                data-trigger="click hover"
-                               data-content="<p>buyandsell.se bär inte ansvaret för annonsens innehåll.</p><p>buyandsell.se frånsäger sig ångerrätt\n\n (som är normalt sätt 14 dagar vid köp av varor eller tjänst via internet).</p><p>Olagliga varor eller tjänster som (vapen, alkohol, tobak, narkotika, pornografi, läkemedel) kommer raderas och polisanmälas.</p><p>Det är förbjudet att lägga upp i annonsen stötande eller kränkande för folkgrupper och/eller enskilda individer bilder eller text.</p>"
+                               data-content="<p>buyandsell.se bär inte ansvaret för annonsens innehåll.</p><p>buyandsell.se frånsäger sig ångerrätt (som normalt sett är 14 dagar vid köp av varor eller tjänst via internet).</p><p>Olagliga varor eller tjänster som (vapen, alkohol, tobak, narkotika, pornografi, läkemedel) kommer raderas och polisanmälas.</p><p>Det är förbjudet att lägga upp i annonsen stötande eller kränkande för folkgrupper och/eller enskilda individer bilder eller text.</p>"
                                data-toggle="popover" >villkoren</a>.</label>
                         </div>
                         <div class="modal-footer"> 
