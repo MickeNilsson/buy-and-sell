@@ -15,7 +15,7 @@ function uploadImage($file_a, $id_i) {
     $uploadStatus_i = $file_a['error'];
     $fileSize_i = $file_a['size'];
     if($uploadStatus_i == UPLOAD_ERR_OK && $fileSize_i < 2000000){
-        if(move_uploaded_file($fileTmpName_s, '../../uploads/' . $fileName_s)) {
+        if(move_uploaded_file($fileTmpName_s, '../../../uploads/' . $fileName_s)) {
             return true;
         } else {
             return false;
