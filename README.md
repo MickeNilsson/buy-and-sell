@@ -1,4 +1,4 @@
 # buy-and-sell
 A web application for buying and selling stuff.
 
-[Demo](http://digizone.se/buy-and-sell)
+[Demo](http://mikael-nilsson.se/buy-and-sell)
